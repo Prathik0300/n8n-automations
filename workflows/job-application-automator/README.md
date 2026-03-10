@@ -57,8 +57,15 @@ curl -H "x-api-key: your_api_key_here" \
 ```
 
 ## Step 3 — Start LaTeX Compiler
+
+Clone this repo and navigate to the latex-compiler service directory first:
 ```bash
-cd workflows/job-application-automator/services/latex-compiler
+git clone https://github.com/Prathik0300/n8n-automations.git
+cd n8n-automations/workflows/job-application-automator/services/latex-compiler
+```
+
+Then build and run:
+```bash
 docker build -t latex-compiler .
 docker run -d \
   --name latex-compiler \
