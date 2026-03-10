@@ -1,0 +1,21 @@
+app = 'prathik-jobspy'
+primary_region = 'ord'
+
+[build]
+  image = 'rainmanjam/jobspy-api:latest'
+
+[env]
+  API_KEYS = 'jobspy123'
+  ENABLE_API_KEY_AUTH = 'true'
+
+[http_service]
+  internal_port = 8000
+  force_https = false
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+
+[[vm]]
+  memory = '256mb'
+  cpu_kind = 'shared'
+  cpus = 1
