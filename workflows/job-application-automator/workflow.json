@@ -45,13 +45,13 @@
               {
                 "id": "7ccc2c9a-8c64-42f7-b1f9-44b96a5c3b5b",
                 "name": "spreadsheet_id",
-                "value": "1I069177Or9OP4ERaeyDnParboqP0-bNcI3NJPgMH-Mc",
+                "value": "<YOUR_SPREADSHEET_ID>",
                 "type": "string"
               },
               {
                 "id": "964648e0-b95e-4356-8aca-364ab120a6d7",
                 "name": "your_email",
-                "value": "prathik0300@gmail.com",
+                "value": "<YOUR_EMAIL_ID>",
                 "type": "string"
               },
               {
@@ -63,7 +63,7 @@
               {
                 "id": "a106ed7b-f888-441f-91f3-f63f68b0a5f3",
                 "name": "resume_file_id",
-                "value": "1h2fi-G8zS2CLOgga1WngBAvn_xT7v6m-",
+                "value": "<YOUR_RESUME_ID_FROM_DRIVE>",
                 "type": "string"
               },
               {
@@ -183,7 +183,7 @@
         "waitBetweenTries": 5000,
         "credentials": {
           "googleDocsOAuth2Api": {
-            "id": "nsJIFZmZwqmpJVx7",
+            "id": "<GOOGLE_DOCS_OAUTH>",
             "name": "Google Docs account"
           }
         },
@@ -191,7 +191,7 @@
       },
       {
         "parameters": {
-          "folderId": "1KgQZ9lR_bpMvWszXSa6sDnYAQe3y9EQk",
+          "folderId": "<YOUR_DRIVE_FOLDER_ID>",
           "title": "={{ $json.company }} - {{ $json.title }} - Cover Letter"
         },
         "type": "n8n-nodes-base.googleDocs",
@@ -206,7 +206,7 @@
         "waitBetweenTries": 5000,
         "credentials": {
           "googleDocsOAuth2Api": {
-            "id": "nsJIFZmZwqmpJVx7",
+            "id": "<GOOGLE_DOCS_OAUTH>",
             "name": "Google Docs account"
           }
         }
@@ -214,7 +214,7 @@
       {
         "parameters": {
           "method": "POST",
-          "url": "https://prathik-latex.fly.dev/compile",
+          "url": "<LATEX_SERVICE_URL>",
           "sendBody": true,
           "bodyParameters": {
             "parameters": [
@@ -258,10 +258,10 @@
           },
           "folderId": {
             "__rl": true,
-            "value": "1KgQZ9lR_bpMvWszXSa6sDnYAQe3y9EQk",
+            "value": "<YOUR_DRIVE_FOLDER_ID>",
             "mode": "list",
             "cachedResultName": "Job Applications",
-            "cachedResultUrl": "https://drive.google.com/drive/folders/1KgQZ9lR_bpMvWszXSa6sDnYAQe3y9EQk"
+            "cachedResultUrl": "<YOUR_DRIVE_FOLDER_URL>"
           },
           "options": {}
         },
@@ -276,7 +276,7 @@
         "retryOnFail": true,
         "credentials": {
           "googleDriveOAuth2Api": {
-            "id": "mnjuvoIA8IFp5vc2",
+            "id": "<GOOGLE_DRIVE_OAUTH>",
             "name": "Google Drive account"
           }
         },
@@ -468,7 +468,7 @@
         "retryOnFail": true,
         "credentials": {
           "googleSheetsOAuth2Api": {
-            "id": "rTrKUx0z2RQ76BHT",
+            "id": "<GOOGLE_SHEET_OAUTH>",
             "name": "Google Sheets account"
           }
         },
@@ -489,7 +489,7 @@
       },
       {
         "parameters": {
-          "sendTo": "prathik0300@gmail.com",
+          "sendTo": "<YOUR_EMAIL_ID>",
           "subject": "={{ $json.total }} Jobs Ready to Apply — {{ $now.toFormat('MMM dd, yyyy') }}",
           "message": "={{ $json.html }}",
           "options": {}
@@ -505,7 +505,7 @@
         "webhookId": "3399edad-09b6-44e6-9ee3-4de06c8ae60e",
         "credentials": {
           "gmailOAuth2": {
-            "id": "BBIdKqE0XoH2jRhs",
+            "id": "<GOOGLE_GMAIL_OAUTH>",
             "name": "Gmail account"
           }
         }
@@ -671,17 +671,17 @@
         "parameters": {
           "documentId": {
             "__rl": true,
-            "value": "1I069177Or9OP4ERaeyDnParboqP0-bNcI3NJPgMH-Mc",
+            "value": "<GOOGLE_SHEETS_ID>",
             "mode": "list",
             "cachedResultName": "Job Application Tracker",
-            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1I069177Or9OP4ERaeyDnParboqP0-bNcI3NJPgMH-Mc/edit?usp=drivesdk"
+            "cachedResultUrl": "<GOOGLE_SHEETS_URL>"
           },
           "sheetName": {
             "__rl": true,
             "value": "gid=0",
             "mode": "list",
             "cachedResultName": "Application Master",
-            "cachedResultUrl": "https://docs.google.com/spreadsheets/d/1I069177Or9OP4ERaeyDnParboqP0-bNcI3NJPgMH-Mc/edit#gid=0"
+            "cachedResultUrl": "<GOOGLE_SHEETS_URL>"
           },
           "options": {}
         },
@@ -695,7 +695,7 @@
         "name": "Get Already Applied Jobs",
         "credentials": {
           "googleSheetsOAuth2Api": {
-            "id": "rTrKUx0z2RQ76BHT",
+            "id": "<GOOGLE_SHEETS_OAUTH>",
             "name": "Google Sheets account"
           }
         }
@@ -778,7 +778,7 @@
       },
       {
         "parameters": {
-          "sendTo": "prathik0300@gmail.com",
+          "sendTo": "<YOUR_EMAIL_ID>",
           "subject": "=No new jobs found — {{ $now.toFormat('MMM dd, yyyy') }}",
           "message": "=<!DOCTYPE html> <html> <head>   <meta charset=\"UTF-8\"> </head> <body style=\"margin:0;padding:0;background:#f4f6f9;font-family:'Segoe UI',Arial,sans-serif;\">   <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f6f9;padding:40px 0;\">     <tr>       <td align=\"center\">         <table width=\"520\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);\">                      <!-- Top accent bar -->           <tr>             <td style=\"background:linear-gradient(90deg,#6366f1,#06b6d4);height:5px;\"></td>           </tr>            <!-- Body -->           <tr>             <td style=\"padding:40px 40px 32px;\">                              <!-- Icon + heading -->               <div style=\"text-align:center;margin-bottom:28px;\">                 <div style=\"font-size:48px;margin-bottom:12px;\">📭</div>                 <h1 style=\"margin:0;font-size:22px;font-weight:700;color:#1a202c;\">No New Jobs Today</h1>                 <p style=\"margin:8px 0 0;font-size:14px;color:#718096;\">Your daily job scan ran successfully — nothing new to process.</p>               </div>                <!-- Divider -->               <div style=\"border-top:1px solid #e2e8f0;margin:0 0 24px;\"></div>                <!-- Detail row -->               <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">                 <tr>                   <td style=\"background:#f7fafc;border-radius:8px;padding:16px 20px;\">                     <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">                       <tr>                         <td style=\"font-size:13px;color:#718096;padding-bottom:8px;\">📅 &nbsp;Scan date</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;padding-bottom:8px;\">{{ $now.toFormat('MMM dd, yyyy') }}</td>                       </tr>                       <tr>                         <td style=\"font-size:13px;color:#718096;padding-bottom:8px;\">🔍 &nbsp;Status</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;padding-bottom:8px;\">All jobs already tracked</td>                       </tr>                       <tr>                         <td style=\"font-size:13px;color:#718096;\">⚡ &nbsp;Next scan</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;\">Tomorrow at 7:00 AM</td>                       </tr>                     </table>                   </td>                 </tr>               </table>                <!-- Footer note -->               <p style=\"margin:24px 0 0;font-size:13px;color:#a0aec0;text-align:center;line-height:1.6;\">                 This is an automated message from your n8n job tracker.<br>No action needed.               </p>              </td>           </tr>            <!-- Bottom bar -->           <tr>             <td style=\"background:#f7fafc;padding:16px 40px;border-top:1px solid #e2e8f0;text-align:center;\">               <span style=\"font-size:12px;color:#cbd5e0;\">AI Job Tracker &nbsp;·&nbsp; {{ $now.toFormat('yyyy') }}</span>             </td>           </tr>          </table>       </td>     </tr>   </table> </body> </html>",
           "options": {}
@@ -794,7 +794,7 @@
         "webhookId": "6c4f9626-3aa6-4215-88cd-190721e6d17e",
         "credentials": {
           "gmailOAuth2": {
-            "id": "BBIdKqE0XoH2jRhs",
+            "id": "<YOUR_GMAIL_OAUTH>",
             "name": "Gmail account"
           }
         }
