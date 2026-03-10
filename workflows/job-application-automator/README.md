@@ -76,6 +76,3 @@ Toggle the workflow to Active in n8n. Runs daily at 9 PM CT.
 | JobSpy API | Scrapes jobs from major job boards | 8000 |
 | LaTeX Compiler | Compiles LaTeX resume to PDF | 5001 |
 
-## Cost
-
-~$2-3/month on Fly.io (n8n at 512MB, others at 256MB with auto-sleep)
