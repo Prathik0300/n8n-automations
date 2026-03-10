@@ -1,0 +1,19 @@
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+dist/
+build/
+venv/
+.env
+
+# n8n
+*.sqlite
+.n8n/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
