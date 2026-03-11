@@ -129,6 +129,257 @@ Open the **Resume LaTeX Store** node and replace the LaTeX content with your own
 
 In the **ATS Resume Optimization**, **Filter Jobs with Claude**, and **Write Cover Letter** HTTP nodes, go to **Headers** and replace `YOUR_ANTHROPIC_API_KEY` with your actual key from [console.anthropic.com](https://console.anthropic.com).
 
+
+## Step 8a — Using Ollama Instead of Claude (Free Alternative)
+
+If you do not want to pay for the Anthropic API you can run a local AI model for free using Ollama. This replaces Claude in the resume optimization, cover letter, and job filter steps.
+
+### Option A — Run Ollama Locally (Recommended)
+
+**1. Install Ollama**
+```bash
+# Mac
+brew install ollama
+
+# Linux
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
+**Windows**
+
+Download and run the installer from [ollama.com/download](https://ollama.com/download). Once installed Ollama runs automatically as a background service.
+
+**2. Start Ollama**
+```bash
+# Mac and Linux
+ollama serve
+```
+
+On Windows Ollama starts automatically after installation. If it is not running, search for Ollama in the Start menu and launch it.
+
+Ollama will run at `http://localhost:11434`
+
+**3. Pull a model**
+```bash
+# Mac and Linux
+ollama pull llama3.1:8b
+```
+```powershell
+# Windows (run in PowerShell or Command Prompt)
+ollama pull llama3.1:8b
+```
+
+Available models:
+```bash
+# Lighter — faster, uses less RAM
+ollama pull llama3.2:3b
+
+# Recommended — good balance of speed and quality
+ollama pull llama3.1:8b
+
+# Best quality — needs 16GB+ RAM
+ollama pull llama3.1:70b
+```
+
+**4. Verify it is running**
+```bash
+# Mac and Linux
+curl http://localhost:11434/api/generate -d '{
+  "model": "llama3.1:8b",
+  "prompt": "Say hello",
+  "stream": false
+}'
+```
+```powershell
+# Windows (PowerShell)
+Invoke-RestMethod -Uri "http://localhost:11434/api/generate" `
+  -Method POST `
+  -ContentType "application/json" `
+  -Body '{"model":"llama3.1:8b","prompt":"Say hello","stream":false}'
+```
+
+---
+
+### Option B — Run Ollama in Docker
+```bash
+# Mac and Linux
+docker run -d \
+  --name ollama \
+  -p 11434:11434 \
+  -v ollama_data:/root/.ollama \
+  --restart always \
+  ollama/ollama
+```
+```powershell
+# Windows (PowerShell)
+docker run -d `
+  --name ollama `
+  -p 11434:11434 `
+  -v ollama_data:/root/.ollama `
+  --restart always `
+  ollama/ollama
+```
+
+If you have an NVIDIA GPU add `--gpus all` for much faster inference:
+```bash
+# Mac and Linux
+docker run -d \
+  --name ollama \
+  -p 11434:11434 \
+  -v ollama_data:/root/.ollama \
+  --gpus all \
+  --restart always \
+  ollama/ollama
+```
+```powershell
+# Windows (PowerShell)
+docker run -d `
+  --name ollama `
+  -p 11434:11434 `
+  -v ollama_data:/root/.ollama `
+  --gpus all `
+  --restart always `
+  ollama/ollama
+```
+
+Then pull a model inside the container:
+```bash
+docker exec -it ollama ollama pull llama3.1:8b
+```
+
+---
+
+### Update the Workflow to Use Ollama
+
+Ollama exposes an OpenAI-compatible API so you only need to change the URL and body in each HTTP node. Update these 3 nodes:
+
+**Filter Jobs with Claude → Filter Jobs with Ollama**
+
+| Field | Old Value | New Value |
+|-------|-----------|-----------|
+| URL | `https://api.anthropic.com/v1/messages` | `http://host.docker.internal:11434/api/chat` |
+| Header `x-api-key` | your Anthropic key | remove this header |
+| Header `anthropic-version` | `2023-06-01` | remove this header |
+
+Body:
+```json
+{
+  "model": "llama3.1:8b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "={{ $json.prompt }}"
+    }
+  ],
+  "stream": false
+}
+```
+
+Response field to use in Parse Filter Output: `message.content` instead of `content[0].text`
+
+---
+
+**ATS Resume Optimization → Resume Optimization with Ollama**
+
+| Field | Old Value | New Value |
+|-------|-----------|-----------|
+| URL | `https://api.anthropic.com/v1/messages` | `http://host.docker.internal:11434/api/chat` |
+| Header `x-api-key` | your Anthropic key | remove this header |
+| Header `anthropic-version` | `2023-06-01` | remove this header |
+
+Body:
+```json
+{
+  "model": "llama3.1:8b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "={{ $json.prompt }}"
+    }
+  ],
+  "stream": false,
+  "options": {
+    "num_ctx": 8192
+  }
+}
+```
+
+Response field to use downstream: `message.content` instead of `content[0].text`
+
+---
+
+**Write Cover Letter → Cover Letter with Ollama**
+
+Same URL and header changes as above. Body:
+```json
+{
+  "model": "llama3.1:8b",
+  "messages": [
+    {
+      "role": "user",
+      "content": "={{ $json.prompt }}"
+    }
+  ],
+  "stream": false,
+  "options": {
+    "num_ctx": 4096
+  }
+}
+```
+
+---
+
+### Update Parse Filter Output for Ollama Response
+
+The Ollama response structure is different from Claude. In your **Parse Filter Output** code node change:
+```js
+// Claude
+text = response.content[0]?.text || '';
+
+// Ollama — replace with this
+text = response.message?.content || '';
+```
+
+---
+
+### URL Based on Your Setup
+
+| n8n location | Ollama location | URL to use |
+|--------------|-----------------|------------|
+| Docker | Local (Mac/Linux) | `http://host.docker.internal:11434/api/chat` |
+| Docker | Local (Windows) | `http://host.docker.internal:11434/api/chat` |
+| Docker | Docker (same machine) | `http://ollama:11434/api/chat` |
+| Local | Local | `http://localhost:11434/api/chat` |
+
+If both n8n and Ollama are running in Docker, put them on the same network:
+```bash
+# Mac and Linux
+docker network create n8n-network
+docker network connect n8n-network n8n
+docker network connect n8n-network ollama
+```
+```powershell
+# Windows (PowerShell)
+docker network create n8n-network
+docker network connect n8n-network n8n
+docker network connect n8n-network ollama
+```
+
+---
+
+### Model Recommendations
+
+| Model | RAM Required | Quality | Speed |
+|-------|-------------|---------|-------|
+| `llama3.2:3b` | 4GB | Good | Fast |
+| `llama3.1:8b` | 8GB | Better | Medium |
+| `mistral:7b` | 8GB | Better | Medium |
+| `llama3.1:70b` | 48GB | Best | Slow |
+
+> **Note:** Local models will produce lower quality resumes and cover letters compared to Claude. For best results use `llama3.1:8b` or higher. The job filtering step works well even with smaller models.
+
+
+
 ## Step 9 — Create Google Sheets Tracker
 
 Create a Google Sheet with a tab named `Application Master` with these exact column headers:
