@@ -1,1073 +1,1073 @@
 {
-    "name": "Job Application Automation",
-    "nodes": [
-      {
-        "parameters": {
-          "rule": {
-            "interval": [
-              {
-                "triggerAtHour": 21
-              }
-            ]
-          }
-        },
-        "type": "n8n-nodes-base.scheduleTrigger",
-        "typeVersion": 1.3,
-        "position": [
-          0,
-          0
-        ],
-        "id": "fe9fcbab-9945-4d12-80cd-02affa3b04e9",
-        "name": "Daily Trigger"
-      },
-      {
-        "parameters": {
-          "assignments": {
-            "assignments": [
-              {
-                "id": "6e879645-de81-4c3a-a5ef-177858733274",
-                "name": "job_title",
-                "value": "Software Engineer, DevOps Engineer, Kubernetes Engineer, Web Developer, Backend Developer, Frontend Developer, Full Stack Developer",
-                "type": "string"
-              },
-              {
-                "id": "b0f84785-5aca-4e81-a868-f1b7a6d8c8d1",
-                "name": "location",
-                "value": "United States",
-                "type": "string"
-              },
-              {
-                "id": "7acbba01-1eb4-438e-8fa9-33e75adf3d4e",
-                "name": "remote_ok",
-                "value": "true",
-                "type": "string"
-              },
-              {
-                "id": "7ccc2c9a-8c64-42f7-b1f9-44b96a5c3b5b",
-                "name": "spreadsheet_id",
-                "value": "<YOUR_SPREADSHEET_ID>",
-                "type": "string"
-              },
-              {
-                "id": "964648e0-b95e-4356-8aca-364ab120a6d7",
-                "name": "your_email",
-                "value": "<YOUR_EMAIL_ID>",
-                "type": "string"
-              },
-              {
-                "id": "e07e212d-abc6-43a9-8511-76451387b3af",
-                "name": "max_jobs",
-                "value": "4",
-                "type": "string"
-              },
-              {
-                "id": "a106ed7b-f888-441f-91f3-f63f68b0a5f3",
-                "name": "resume_file_id",
-                "value": "<YOUR_RESUME_ID_FROM_DRIVE>",
-                "type": "string"
-              },
-              {
-                "id": "18fac6c6-9866-4c6f-b0b1-273bac50072b",
-                "name": "software_job",
-                "value": "software engineer python javascript react entry level",
-                "type": "string"
-              },
-              {
-                "id": "f9bd9a3d-5450-4781-81e2-cf796828d6d9",
-                "name": "devops_job",
-                "value": "devops engineer kubernetes docker AWS entry level",
-                "type": "string"
-              },
-              {
-                "id": "8d7f1ce8-1a81-4338-b514-0f020c8d2c75",
-                "name": "fullstack_job",
-                "value": "full stack developer react nodejs javascript entry level associate",
-                "type": "string"
-              },
-              {
-                "id": "1c443add-1e8b-49c0-b05a-6dca786f9afc",
-                "name": "remote_job",
-                "value": "remote software engineer react python nodejs junior",
-                "type": "string"
-              }
-            ]
-          },
-          "options": {}
-        },
-        "type": "n8n-nodes-base.set",
-        "typeVersion": 3.4,
-        "position": [
-          272,
-          0
-        ],
-        "id": "48c0a2a9-667c-4c79-905a-7489e8ae451c",
-        "name": "Workflow Config"
-      },
-      {
-        "parameters": {
-          "jsCode": "// Get config from Edit Fields\nconst config = $input.first().json;\n\n// Your LaTeX resume stored as a variable\nconst resume_latex = String.raw`\\documentclass[a4paper,10pt]{article}\n\\usepackage[utf8]{inputenc}\n\\usepackage{geometry}\n\\usepackage{enumitem}\n\\usepackage{titlesec}\n\\usepackage{hyperref}\n\\usepackage{fontawesome5}\n\\usepackage{xcolor}\n\\pagestyle{empty}\n\\usepackage{graphicx}\n\\geometry{left=0.3in, right=0.3in, top=0.3in, bottom=0.3in}\n\\setlength{\\parindent}{0pt}\n\\setlength{\\parskip}{0.5pt}\n\\setlist[itemize]{leftmargin=0.25in}\n\n\\titleformat{\\section}{\\large\\bfseries}{}{0em}{}[\\titlerule]\n\\titlespacing{\\section}{0pt}{0.4em}{0.5em}\n\n\\begin{document}\n\n\\begin{center}\n    {\\huge \\bf Prathik Pugazhenthi}\\\\\n    \\small \\reflectbox{\\faPhone}\\ (312) 889-3640\\quad $|$ \\quad \\href{mailto:prathik0300@gmail.com}{\\faEnvelope\\ prathik0300@gmail.com}\\quad $|$ \\quad \\href{https://www.linkedin.com/in/prathik-pugazhenthi-487855177/}{\\faLinkedin\\ Linkedin}\\quad $|$ \\quad\n    \\href{https://github.com/Prathik0300}{\\faGithub\\ GitHub} \\quad $|$ \\quad\n    \\href{https://www.prathikpugazhenthi.dev/}{\\faGlobe\\ Portfolio Website}\\quad \\quad\n\n    \\faMapMarker\\ Chicago, IL\\quad\n\\end{center}\n\n\n\\section*{Education}\n\\textbf{University of Illinois, Chicago \\hfill Aug 2024 – May 2026} \\\\\nMaster of Science in Computer Science   \\hfill          \nGPA: 4.00/4.00 \\\\\n\\hspace{12pt}\n\\textbf{Vellore Institute of Technology, Vellore, India\\hfill Jul 2018 – May 2022} \\\\\nBachelors in Computer Science and Engineering \\hfill          \nGPA: 3.60/4.00 \\\\\n\\vspace{-12pt}\n\\section*{Technical Skills}\n\n\\textbf{Tech Stack:} Python, JavaScript, TypeScript, React, Redux, Next.js, Nest.js, Node.js, Swift, Solidity, Flask, HTML  \\\\\n\\textbf{Databases \\& Messaging:} SQL, MongoDB, Redis, Cassandra, RabbitMQ, Azure Service Bus \\\\\n\\textbf{Cloud Platforms} GCP, AWS, Azure \\\\\n\\textbf{AI \\& ML:} TensorFlow, R, Machine Learning, OpenAI \\\\\n\\textbf{DevOps \\& CI/CD:} Docker, SonarQube, Kubernetes, GitHub Actions. \\\\\n\\textbf{Tools, Technologies \\& Methodologies:} Selenium, Jest, PowerBI, Alteryx, Postman, Figma, Agile, Scrum, CI/CD, TDD.\\\\\n\n\\vspace{-9pt}\n\n\\section*{Experience}\n\n\\textbf{Software Development Intern Co-op, RadioFX Inc.} $|$ Chicago, USA\\hfill \\textbf{Sept 2025 – Dec 2025} \\\\\n\\begin{itemize}\n\\vspace{-15pt}\n    \\item \\textbf{Engineered a multi-agent AI website generation pipeline} (Gemini 2.5/3 Pro, Vercel v0) automating prompt $\\rightarrow$ code $\\rightarrow$ deployment, and deployed \\textbf{N+ multi-tenant websites} on GKE using Helm, namespace isolation, and NGINX ingress.\n    \\vspace{-15pt}\n    \\item \\textbf{Developed a scalable end-to-end CMS} using NestJS and Cassandra, and built \\textbf{plug-and-play, JWT-secured API components} for third-party websites to seamlessly integrate RadioFX services, supported by optimized CI/CD workflows.\n\\end{itemize}\n\n\\textbf{Software Development Intern, RadioFX Inc.} $|$ Chicago, USA\\hfill \\textbf{June 2025 – Aug 2025} \\\\\n\\begin{itemize}\n\\vspace{-17pt}\n    \\item Migrated \\textbf{legacy services to Google Kubernetes Engine (GKE)} by architecting isolated dev and prod clusters with namespace-level separation, improving platform scalability and security.\n    \\vspace{-5pt}\n    \\item \\textbf{Built and optimized CI/CD pipelines} using Google Cloud Build and GitHub Actions to enable automated, zero-downtime deployments across multiple environments.\n% \\end{itemize}\n    % \\vspace{-5pt}\n    % \\item \\textbf{Built an automated website builder} for radio stations using a two-agent pipeline: an \\textbf{Evaluation Agent} to analyze SEO, security, and UX gaps, and a \\textbf{Design Agent} to generate layouts via Vercel’s Web Builder (v0); deployed optimized sites on GKE.\n    % \\vspace{-5pt}\n    % \\item \\textbf{Modernized backend stack} by migrating microservices to \\textbf{NestJS + Fastify}, reducing latency and improving request throughput.\n    \n\\end{itemize}\n\n\\textbf{Software Development Engineer, Bajaj Finserv Health} $|$ Pune, India\\hfill \\textbf{Sept 2023 – Jul 2024} \\\\\n\\begin{itemize}\n\\vspace{-15pt}\n\n    \\item \\textbf{Engineered} and \\textbf{elevated} two key modules within the Doctor’s Portal, \\textbf{improving} system \\textbf{reliability} and overall functionality.\n    \\vspace{-5pt}\n    \\item \\textbf{Created} robust validation rules and \\textbf{automated} pipelines for B2C and Doctor’s Portal teams, \\textbf{minimizing} codebase errors by \\textbf{80\\%} and \\textbf{optimizing} workflow.\n    \\vspace{-5pt}\n    \\item \\textbf{Designed} and \\textbf{architected CanvasRx}, a feature \\textbf{empowering} doctors to \\textbf{upload} and \\textbf{annotate} images,\\textbf{enhancing} consultation workflows and user interaction.\n    \n\\end{itemize}\n\n\\textbf{Associate Software Development Engineer, Bajaj Finserv Health} $|$ Pune, India\\hfill \\textbf{Jul 2022 – Sept 2023} \\\\\n\\begin{itemize}\n\\vspace{-15pt}\n\n    \\item \\textbf{Led} the end-to-end \\textbf{maintenance} of three core B2C modules, \\textbf{supporting 98\\%} of total website traffic and \\textbf{reducing} bug occurrences by \\textbf{95\\%}.\n    \\vspace{-5pt}\n    \\item \\textbf{Optimized} website performance by \\textbf{implementing} AMP, \\textbf{boosting} the PageSpeed Score from \\textbf{65} to \\textbf{99}, resulting in \\textbf{faster} load times and an \\textbf{enhanced} user experience.\n\n\n\n\\end{itemize}\n\\textbf{Software Development Engineer Intern, Bajaj Finserv Health} $|$ Pune, India\n \\hfill \\textbf{Jan 2022 – Jun 2022} \\\\\n\\begin{itemize}\n\\vspace{-15pt}\n\n    \\item \\textbf{Refined} website SEO by \\textbf{reducing poor URLs from 11,380 to 562}, \\textbf{elevating} the SEO score to \\textbf{98} for critical traffic-driving pages.\n    \\vspace{-5pt}\n    \\item \\textbf{Established} SonarQube pipeline, \\textbf{increasing code coverage from 0\\% to 55\\%}, \\textbf{enhancing code quality} and \\textbf{maintainability}.\n\n\\end{itemize}\n\n% \\textbf{Business Analyst Intern, UBS} $|$ Hyderabad, India \\hfill \\textbf{Jun 2021 – Aug 2021} \\\\\n% \\begin{itemize}\n% \\vspace{-15pt}\n\n%    \\item \\textbf{Optimized Alteryx workflows} and \\textbf{streamlined 11 ARIS processes}, reducing dataset processing time by \\textbf{90\\%} and eliminating \\textbf{7,000+ redundant tasks}.\n\n% \\end{itemize}\n\n\\section*{Projects}\n\\textbf{EnsoGrow} $|$ \\textbf{WildHacks - 2025} $|$\n\\textcolor{blue}{{\\href{https://github.com/akhilmw2/ensogrow}{Github}}} $|$\n\\textbf{Apr 2025 - Apr 2025} \\\\\n\\begin{itemize}\n\\vspace{-17pt}\n\n\\item Built a React PWA to assist users in growing organic food with AI-powered crop suggestions and gamified care tracking.\n\\vspace{-5pt}\n\\item Integrated computer vision and Gemini API to diagnose plant health and recommend treatments.\n\\end{itemize}\n\n\\textbf{Virtual Emotion Mirror} $|$ \n\\textcolor{blue}{{\\href{https://github.com/Prathik0300/Virtual_Emotion_Mirror}{Github}}} $|$\n\\textbf{Jan 2025 - Mar 2025} \\\\\n\\begin{itemize}\n\\vspace{-17pt}\n\n\\item Developed an AI facial emotion recognition app that tailors music/movie recommendations based on real-time expressions.\n\\vspace{-15pt}\n\\item Used React.js for UI, Nest.js-Python for backend, and MongoDB for emotional trend tracking.\n\\end{itemize}\n\n% \\textbf{Automated Program Repair Using LLM} $|$\n% \\textbf{Oct 2024 - Dec 2024}\\\\\n% \\begin{itemize}\n% \\vspace{-17pt}\n\n% \\item Built a 3-stage LLM repair pipeline using AFL fuzzing, GDB traces, and LangChain memory—fixed 11/13 crash bugs.\n% \\vspace{-3pt}\n% \\item Automated prompt generation and evaluation cycle using iterative validation with AFL.\n% \\end{itemize}\n\n\\section*{Publications}\n\\begin{itemize}\n    \\item \\textbf{CRLite+: A lightweight browser extension for dynamic certificate revocation enforcement} - Released as a fully functional Chrome extension for revocation enforcement. \n    \\textcolor{blue}{\\href{https://chromewebstore.google.com/detail/crlite-extension/mkapckifchidaldnnnoipmcamgcefobj}{Chrome Web Store}} $\\vert$ \n    \\textcolor{blue}{\\href{https://www.academia.edu/144366111/CRLite_A_lightweight_browser_extension_for_dynamic_certificate_revocation_enforcement?source=swp_share}{View Publication}}\n    \\vspace{-3pt}\n    \\item \\textbf{Integrating Coverage-Guided Fuzzing and LLM Reasoning for Automated Repair of Crash-Inducing Bugs} - Introduces a 3-stage repair pipeline combining AFL fuzzing, GDB traces, and LLM reasoning.\n    \\textcolor{blue}{\\href{https://www.academia.edu/144366072/Integrating_Coverage_Guided_Fuzzing_and_LLM_Reasoning_for_Automated_Repair_of_Crash_Inducing_Bugs?source=swp_share}{View Publication}}\n\\end{itemize}\n\n\n\\end{document}`;\n\nreturn [{\n  json: {\n    ...config,\n    resume_latex\n  }\n}];"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          512,
-          0
-        ],
-        "id": "447f62f5-04a7-4465-9b62-8bae73ae1a42",
-        "name": "Resume LaTeX Store"
-      },
-      {
-        "parameters": {
-          "jsCode": "const sites = ['indeed', 'linkedin', 'zip_recruiter', 'glassdoor', 'google'];\n\nconst sleep = (ms) => new Promise(resolve => {\n  const start = Date.now();\n  while (Date.now() - start < ms) {}\n});\n\nconst allTerms = [\n  // General terms\n  $input.first().json.software_job,\n  $input.first().json.devops_job,\n  $input.first().json.fullstack_job,\n  $input.first().json.remote_job,\n  $input.first().json.associate_job,\n  'backend developer python nodejs entry level',\n  'frontend developer react javascript entry level',\n  // Extra terms\n  'associate software engineer',\n  'associate software developer',\n  'associate full stack developer',\n  'associate backend developer',\n  'associate frontend developer',\n  'associate devops engineer',\n  'software engineer new grad',\n  'software engineer I entry level',\n  'junior software engineer',\n  'SDE 1 software engineer',\n  'early career software engineer',\n  'new graduate software engineer'\n];\n\nconst apiKey = <YOUR_API_KEY>';\nconst config = $input.first().json;\n\n// Build all combinations upfront\nconst combinations = [];\nfor (const site of sites) {\n  for (const term of allTerms) {\n    combinations.push({ site, term });\n  }\n}\n\n// Helper to fetch one combination\nconst fetchJobs = async ({ site, term }) => {\n  try {\n    const params = [\n      `site_name=${encodeURIComponent(site)}`,\n      `search_term=${encodeURIComponent(term)}`,\n      `location=${encodeURIComponent(config.location)}`,\n      `results_wanted=5`,\n      `job_type=fulltime`,\n      `country_indeed=USA`,\n      `hours_old=168`\n    ].join('&');\n\n    const response = await helpers.httpRequest({\n      method: 'GET',\n      url: `https://prathik-jobspy.fly.dev/api/v1/search_jobs?${params}`,\n      headers: { 'x-api-key': apiKey }\n    });\n\n    if (response.jobs && response.jobs.length > 0) {\n      return response.jobs.map(job => ({\n        title:       job.title        || '',\n        company:     job.company      || '',\n        location:    job.location     || '',\n        job_url:     job.job_url      || '',\n        description: (job.description || '').substring(0, 3000),\n        salary:      job.min_amount   ? `$${job.min_amount} - $${job.max_amount}` : 'Not specified',\n        date_posted: job.date_posted  || '',\n        is_remote:   job.is_remote    || false,\n        source:      site\n      }));\n    }\n    return [];\n  } catch(e) {\n    console.log(`Failed: ${site} - ${term}: ${e}`);\n    return [];\n  }\n};\n\n// Process in parallel batches of 10\nconst BATCH_SIZE = 10;\nconst allJobs = [];\n\nfor (let i = 0; i < combinations.length; i += BATCH_SIZE) {\n  const batch = combinations.slice(i, i + BATCH_SIZE);\n  const results = await Promise.all(batch.map(fetchJobs));\n  results.forEach(jobs => allJobs.push(...jobs));\n  \n  // Small delay between batches to avoid overwhelming jobspy\n  if (i + BATCH_SIZE < combinations.length) {\n    sleep(100)  \n  }\n}\n\n// Deduplicate by job_url\nconst seen = new Set();\nconst unique = allJobs.filter(job => {\n  if (seen.has(job.job_url)) return false;\n  seen.add(job.job_url);\n  return true;\n});\n\nreturn unique.map(job => ({ json: job }));"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          768,
-          0
-        ],
-        "id": "4abe9817-953c-4988-9469-90675d2b88d2",
-        "name": "Fetch All Jobs",
-        "onError": "continueRegularOutput"
-      },
-      {
-        "parameters": {
-          "jsCode": "const items = $input.all();\nconst originalJobs = $('Fetch All Jobs').all();\nconst results = [];\n\nfor (let i = 0; i < items.length; i++) {\n  const response = items[i].json;\n  \n  let text = '';\n  if (response.content && Array.isArray(response.content)) {\n    text = response.content[0]?.text || '';\n  }\n\n  let isRelevant = false;\n  try {\n    isRelevant = JSON.parse(text.trim()).relevant === true;\n  } catch (e) {\n    isRelevant = text.includes('\"relevant\": true') || text.includes('\"relevant\":true');\n  }\n\n  if (!isRelevant) continue;\n\n  results.push({ json: originalJobs[i].json });\n}\n\nreturn results;"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1296,
-          0
-        ],
-        "id": "1f2ee57d-e5de-44b2-b1fe-2d1a87313961",
-        "name": "Parse Filter Output"
-      },
-      {
-        "parameters": {
-          "mode": "runOnceForEachItem",
-          "jsCode": "const coverResponse = $input.item.json;\nconst base = $('Build Resume Prompt').item.json;\n\nlet coverLetterContent = '';\nif (coverResponse.content && Array.isArray(coverResponse.content)) {\n  coverLetterContent = coverResponse.content[0]?.text || '';\n} else if (coverResponse.text) {\n  coverLetterContent = coverResponse.text;\n}\n\nconst cleanLatex = String(coverResponse.resume_latex || '')\n  .replace(/```latex/gi, '').replace(/```/g, '').trim();\n\nconst cleanCoverLetter = String(coverLetterContent || '')\n  .replace(/```/g, '').replace(/^---\\n/gm, '').trim();\n\nconst docTitle = `${base.company || 'Company'} - ${base.title || 'Role'} - Prathik`\n  .replace(/[^a-zA-Z0-9\\s\\-]/g, '').substring(0, 100);\n\nreturn {\n  json: {\n    title: base.title || '',\n    company: base.company || '',\n    location: base.location || '',\n    job_url: base.job_url || '',\n    salary: base.salary || '',\n    date_posted: base.date_posted || '',\n    source: base.source || '',\n    is_remote: base.is_remote ?? '',\n    description: base.description || '',\n    resume_latex: cleanLatex,\n    cover_letter: cleanCoverLetter,\n    doc_title: docTitle,\n    applied_date: new Date().toLocaleDateString('en-US', {\n      day: 'numeric', month: 'short', year: 'numeric',\n    }),\n  },\n};"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1296,
-          352
-        ],
-        "id": "f9a35f64-acd7-4d68-b382-22492a91945a",
-        "name": "Combine Data"
-      },
-      {
-        "parameters": {
-          "operation": "update",
-          "documentURL": "={{ $json.id }}",
-          "actionsUi": {
-            "actionFields": [
-              {
-                "action": "insert",
-                "locationChoice": "location",
-                "text": "={{ $('Combine Data').item.json.cover_letter }}"
-              }
-            ]
-          }
-        },
-        "type": "n8n-nodes-base.googleDocs",
-        "typeVersion": 2,
-        "position": [
-          1760,
-          352
-        ],
-        "id": "e8c70499-18cf-4b3c-99a0-22b89121adaa",
-        "name": "Insert Cover Letter Content",
-        "retryOnFail": true,
-        "waitBetweenTries": 5000,
-        "credentials": {
-          "googleDocsOAuth2Api": {
-            "id": "<GOOGLE_DOCS_OAUTH>",
-            "name": "Google Docs account"
-          }
-        },
-        "onError": "continueRegularOutput"
-      },
-      {
-        "parameters": {
-          "folderId": "<YOUR_DRIVE_FOLDER_ID>",
-          "title": "={{ $json.company }} - {{ $json.title }} - Cover Letter"
-        },
-        "type": "n8n-nodes-base.googleDocs",
-        "typeVersion": 2,
-        "position": [
-          1520,
-          352
-        ],
-        "id": "ef76e1cc-c6d1-43fe-8d1b-d76a51a72de6",
-        "name": "Create Cover Letter Doc",
-        "retryOnFail": true,
-        "waitBetweenTries": 5000,
-        "credentials": {
-          "googleDocsOAuth2Api": {
-            "id": "<GOOGLE_DOCS_OAUTH>",
-            "name": "Google Docs account"
-          }
+  "name": "Job Application Automation",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [
+            {
+              "triggerAtHour": 21
+            }
+          ]
         }
       },
-      {
-        "parameters": {
-          "method": "POST",
-          "url": "<LATEX_SERVICE_URL>",
-          "sendBody": true,
-          "bodyParameters": {
-            "parameters": [
-              {
-                "name": "latex",
-                "value": "={{ $('Combine Data').item.json.resume_latex }}\n"
-              },
-              {
-                "name": "title",
-                "value": "={{ $('Combine Data').item.json.company }}_Prathik_Pugazhenthi_Resume"
-              }
-            ]
-          },
-          "options": {
-            "batching": {
-              "batch": {
-                "batchSize": 1,
-                "batchInterval": 1500
-              }
-            }
-          }
-        },
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.4,
-        "position": [
-          1984,
-          352
-        ],
-        "id": "31f45570-5e02-44c4-867d-bcad4b4bdd74",
-        "name": "Compile Latex to PDF",
-        "retryOnFail": true,
-        "waitBetweenTries": 5000
-      },
-      {
-        "parameters": {
-          "name": "={{ $('Combine Data').item.json.company }} - Prathik_Pugazhenthi_Resume",
-          "driveId": {
-            "__rl": true,
-            "mode": "list",
-            "value": "My Drive"
-          },
-          "folderId": {
-            "__rl": true,
-            "value": "<YOUR_DRIVE_FOLDER_ID>",
-            "mode": "list",
-            "cachedResultName": "Job Applications",
-            "cachedResultUrl": "<YOUR_DRIVE_FOLDER_URL>"
-          },
-          "options": {}
-        },
-        "type": "n8n-nodes-base.googleDrive",
-        "typeVersion": 3,
-        "position": [
-          32,
-          672
-        ],
-        "id": "497f210f-156a-49e2-bb29-25a5da3ccdba",
-        "name": "Upload Resume to Drive",
-        "retryOnFail": true,
-        "credentials": {
-          "googleDriveOAuth2Api": {
-            "id": "<GOOGLE_DRIVE_OAUTH>",
-            "name": "Google Drive account"
-          }
-        },
-        "onError": "continueRegularOutput"
-      },
-      {
-        "parameters": {
-          "operation": "append",
-          "documentId": {
-            "__rl": true,
-            "value": "={{ $('Workflow Config').first().json.spreadsheet_id }}",
-            "mode": "id"
-          },
-          "sheetName": {
-            "__rl": true,
-            "value": "Application Master",
-            "mode": "name"
-          },
-          "columns": {
-            "mappingMode": "defineBelow",
-            "value": {
-              "Application ID": "={{ Date.now() }}",
-              "Company Name": "={{ $json.company }}",
-              "Role Title": "={{ $json.title }}",
-              "Role Type (Intern / FT / Contract)": "FT",
-              "Location": "={{ $json.location }}",
-              "Work Mode": "={{ $json.is_remote ? 'Remote' : 'Hybrid' }}",
-              "Job Link": "={{ $json.job_url }}",
-              "Applied Date": "={{ $json.applied_date }}",
-              "Cover Letter (Y/N)": "Y",
-              "Current Stage": "Yet to Apply",
-              "Status": "In Review",
-              "Salary Range": "={{ $json.salary }}"
+      "type": "n8n-nodes-base.scheduleTrigger",
+      "typeVersion": 1.3,
+      "position": [
+        0,
+        0
+      ],
+      "id": "fe9fcbab-9945-4d12-80cd-02affa3b04e9",
+      "name": "Daily Trigger"
+    },
+    {
+      "parameters": {
+        "assignments": {
+          "assignments": [
+            {
+              "id": "6e879645-de81-4c3a-a5ef-177858733274",
+              "name": "job_title",
+              "value": "Software Engineer, DevOps Engineer, Kubernetes Engineer, Web Developer, Backend Developer, Frontend Developer, Full Stack Developer",
+              "type": "string"
             },
-            "matchingColumns": [
-              "Application ID"
-            ],
-            "schema": [
-              {
-                "id": "Application ID",
-                "displayName": "Application ID",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true,
-                "removed": false
-              },
-              {
-                "id": "Company Name",
-                "displayName": "Company Name",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Role Title",
-                "displayName": "Role Title",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Role Type (Intern / FT / Contract)",
-                "displayName": "Role Type (Intern / FT / Contract)",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Location",
-                "displayName": "Location",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Work Mode",
-                "displayName": "Work Mode",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Job Link",
-                "displayName": "Job Link",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Applied Date",
-                "displayName": "Applied Date",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Cover Letter (Y/N)",
-                "displayName": "Cover Letter (Y/N)",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Referral Name",
-                "displayName": "Referral Name",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Recruiter Name",
-                "displayName": "Recruiter Name",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Current Stage",
-                "displayName": "Current Stage",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Status",
-                "displayName": "Status",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Last Follow-up Date",
-                "displayName": "Last Follow-up Date",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              },
-              {
-                "id": "Salary Range",
-                "displayName": "Salary Range",
-                "required": false,
-                "defaultMatch": false,
-                "display": true,
-                "type": "string",
-                "canBeUsedToMatch": true
-              }
-            ],
-            "attemptToConvertTypes": false,
-            "convertFieldsToString": false
-          },
-          "options": {}
-        },
-        "type": "n8n-nodes-base.googleSheets",
-        "typeVersion": 4.7,
-        "position": [
-          496,
-          672
-        ],
-        "id": "15f8e092-4e66-484e-86a8-f649fb4d8208",
-        "name": "Log to Job Tracker",
-        "retryOnFail": true,
-        "credentials": {
-          "googleSheetsOAuth2Api": {
-            "id": "<GOOGLE_SHEET_OAUTH>",
-            "name": "Google Sheets account"
-          }
-        },
-        "onError": "continueRegularOutput"
-      },
-      {
-        "parameters": {
-          "jsCode": "const jobs = $input.all() || [];\n\nconst rows = jobs.map((job, i) => `\n  <tr style=\"background:${i % 2 === 0 ? '#f9f9f9' : 'white'}\">\n    <td style=\"padding:10px;border:1px solid #ddd\"><strong>${job.json['Company Name'] || ''}</strong></td>\n    <td style=\"padding:10px;border:1px solid #ddd\">${job.json['Role Title'] || ''}</td>\n    <td style=\"padding:10px;border:1px solid #ddd\">${job.json['Location'] || ''}${job.json['Work Mode'] === 'Remote' ? ' 🌐' : ''}</td>\n    <td style=\"padding:10px;border:1px solid #ddd\">${job.json['Salary Range'] || 'N/A'}</td>\n    <td style=\"padding:10px;border:1px solid #ddd\">${job.json['Source'] || ''}</td>\n    <td style=\"padding:10px;border:1px solid #ddd\">\n      <a href=\"${job.json['Job Link'] || '#'}\" style=\"background:#27ae60;color:white;padding:5px 10px;border-radius:3px;text-decoration:none;margin-right:4px\">Apply</a>\n      <a href=\"${job.json['Resume Link'] || '#'}\" style=\"background:#2980b9;color:white;padding:5px 10px;border-radius:3px;text-decoration:none;margin-right:4px\">Resume</a>\n      <a href=\"${job.json['Cover Letter Link'] || '#'}\" style=\"background:#8e44ad;color:white;padding:5px 10px;border-radius:3px;text-decoration:none\">Cover Letter</a>\n    </td>\n  </tr>\n`).join('');\n\nconst html = `\n<div style=\"font-family:Arial,sans-serif;max-width:900px;margin:0 auto\">\n  <h2 style=\"color:#2c3e50\">🎯 ${jobs.length} Jobs Ready to Apply</h2>\n  <p style=\"color:#666\">Your AI-tailored resume and cover letter are ready for each role below. Click Apply, attach your documents and submit!</p>\n  <table style=\"border-collapse:collapse;width:100%\">\n    <thead>\n      <tr style=\"background:#2c3e50;color:white\">\n        <th style=\"padding:12px;text-align:left\">Company</th>\n        <th style=\"padding:12px;text-align:left\">Role</th>\n        <th style=\"padding:12px;text-align:left\">Location</th>\n        <th style=\"padding:12px;text-align:left\">Salary</th>\n        <th style=\"padding:12px;text-align:left\">Source</th>\n        <th style=\"padding:12px;text-align:left\">Actions</th>\n      </tr>\n    </thead>\n    <tbody>${rows}</tbody>\n  </table>\n  <p style=\"color:#aaa;font-size:12px;margin-top:20px\">\n    Generated by AI Resume Optimizer • ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}\n  </p>\n</div>`;\n\nreturn [{ json: { html, total: jobs.length } }];"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          768,
-          672
-        ],
-        "id": "8511274d-99de-4cbd-a01b-f63cb55132bc",
-        "name": "Build Email Summary"
-      },
-      {
-        "parameters": {
-          "sendTo": "<YOUR_EMAIL_ID>",
-          "subject": "={{ $json.total }} Jobs Ready to Apply — {{ $now.toFormat('MMM dd, yyyy') }}",
-          "message": "={{ $json.html }}",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.gmail",
-        "typeVersion": 2.2,
-        "position": [
-          1040,
-          672
-        ],
-        "id": "2cea416b-3b82-4fbd-81d0-065c018c8842",
-        "name": "Send Summary Email",
-        "webhookId": "3399edad-09b6-44e6-9ee3-4de06c8ae60e",
-        "credentials": {
-          "gmailOAuth2": {
-            "id": "<GOOGLE_GMAIL_OAUTH>",
-            "name": "Gmail account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "mode": "runOnceForEachItem",
-          "jsCode": "const combineData = $('Combine Data').item.json;\nconst coverLetterDocId = $('Create Cover Letter Doc').item.json.id;\nconst upload = $('Upload Resume to Drive').item.json;\n\nconst cover_letter_link = `https://docs.google.com/document/d/${coverLetterDocId}/edit`;\nconst resume_link =\n  upload.webViewLink || `https://drive.google.com/file/d/${upload.id}/view`;\n\nreturn {\n  json: {\n    company: combineData.company,\n    title: combineData.title,\n    location: combineData.location,\n    salary: combineData.salary,\n    job_url: combineData.job_url,\n    source: combineData.source,\n    is_remote: combineData.is_remote,\n    applied_date: combineData.applied_date,\n    resume_link,\n    cover_letter_link,\n  },\n};"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          256,
-          672
-        ],
-        "id": "c381ca1e-631e-4342-b5b3-f280cbd7a166",
-        "name": "Build Job Summary"
-      },
-      {
-        "parameters": {
-          "jsCode": "const items = $input.all();\n\nconst results = items.map(item => {\n  const input = item.json;\n\n  // Extract from Claude API response\n  let raw = '';\n  if (input.content && Array.isArray(input.content)) {\n    raw = input.content[0].text || '';\n  } else if (input.text) {\n    raw = input.text;\n  }\n\n  raw = raw.replace(/```latex/gi, '').replace(/```/g, '');\n\n  const latexMatch = raw.match(/\\\\documentclass[\\s\\S]*?\\\\end\\{document\\}/);\n  let latex = latexMatch\n    ? latexMatch[0].trim()\n    : $('Resume LaTeX Store').first().json.resume_latex;\n\n  const allowedPackages = ['inputenc','geometry','enumitem','titlesec','hyperref','fontawesome5','xcolor','graphicx'];\n  latex = latex.replace(/\\\\usepackage(\\[.*?\\])?\\{([^}]+)\\}/g, (match, opts, pkg) =>\n    allowedPackages.includes(pkg.trim()) ? match : ''\n  );\n  latex = latex.replace(/\\\\titleformat\\{\\\\section\\}[^\\n]*/g,\n    '\\\\titleformat{\\\\section}{\\\\large\\\\bfseries}{}{0em}{}[\\\\titlerule]');\n  latex = latex.replace(/\\\\titlespacing\\{\\\\section\\}[^\\n]*/g,\n    '\\\\titlespacing{\\\\section}{0pt}{0.4em}{0.5em}');\n\n  if (!latex.includes('\\\\begin{document}') || !latex.includes('\\\\end{document}')) {\n    latex = $('Resume LaTeX Store').first().json.resume_latex;\n  }\n  \nconst coverLetterPrompt = `You are an expert cover letter writer who specializes in helping software engineers land jobs at top tech companies. Write a highly compelling, personalized, one-page cover letter for this specific job application.\n\nCANDIDATE PROFILE:\nName: Prathik Pugazhenthi\nLocation: Chicago, IL\nContact: prathik0300@gmail.com | +13128893640 | linkedin.com/in/prathik-pugazhenthi-487855177 | prathikpugazhenthi.dev\nEducation: MS Computer Science, UIC (GPA 4.0, May 2026) | BS CS Engineering, VIT India (GPA 3.6)\n\nEXPERIENCE DEPTH — use these to go beyond what the resume says:\n- RadioFX Co-op (Sept-Dec 2025): Sole engineer on a multi-agent AI pipeline that took a radio station from zero web presence to a fully deployed, production GKE site — automated the entire prompt to code to deployment lifecycle using Gemini 2.5/3 Pro and Vercel v0. Also owned the full CMS architecture end-to-end using NestJS and Cassandra, designed the JWT API contract, and personally shipped the CI/CD pipelines.\n- RadioFX Intern (Jun-Aug 2025): Took ownership of migrating all legacy services to GKE — designed the cluster architecture with isolated dev/prod namespaces from scratch, not just followed instructions. Built Cloud Build and GitHub Actions pipelines with zero-downtime deployment guarantees.\n- Bajaj Finserv Health SDE (Sept 2023-Jul 2024): Reduced codebase errors by 80% by building automated validation pipelines — this directly unblocked the B2C and Doctor Portal teams from daily firefighting. Designed and shipped CanvasRx entirely — a real-time image annotation tool used by doctors in live consultations, improving the quality of patient care workflows.\n- Bajaj Finserv Health Associate SDE (Jul 2022-Sept 2023): Maintained modules that served 98% of all website traffic — high-stakes, high-ownership role with zero tolerance for downtime. The AMP optimization that moved PageSpeed from 65 to 99 was entirely self-initiated, not assigned — identified the problem, proposed the solution, and shipped it.\n- Bajaj Finserv Health Intern (Jan-Jun 2022): Fixed 10,818 broken SEO URLs which directly recovered organic search traffic for the business. Established SonarQube from scratch — the team had zero test coverage before this, and this initiative raised it to 55%.\n\nSKILLS: React, TypeScript, Node.js, NestJS, Python, GCP, AWS, Docker, Kubernetes, MongoDB, Redis, Cassandra, CI/CD, GitHub Actions, GKE, Helm, NGINX, Gemini API, OpenAI, Jest, TDD, Agile\n\nTARGET JOB:\nRole: ${input.title}\nCompany: ${input.company}\nJob Description: ${(input.description || '').substring(0, 800)}\n\nDate: ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}\n\nWRITING RULES:\n1. Write in plain text only — no markdown, no bullet points, no headers, no bold tags.\n2. Sound like a confident, high-ownership engineer — not a generic applicant.\n3. Go beyond the resume. Reveal the depth, context, and personal ownership behind the work. Talk about WHY decisions were made and WHAT challenges were solved, not just WHAT was built.\n4. Mirror keywords from the job description naturally — weave them in conversationally, do not list them.\n5. Every paragraph must make the recruiter think \"this person has done exactly this before\".\n6. Do not fabricate anything — only use experience listed above.\n7. Do not use generic openers like \"I am writing to express my interest\", \"I am a passionate engineer\", \"I would be a great fit\". Start strong and specific instead.\n8. Each paragraph must flow naturally into the next — this should read like a story of compounding ownership and impact, not a list of jobs.\n9. Keep it to exactly 6 paragraphs.\n10. The entire letter including header and sign-off MUST be under 400 words. Be concise and punchy — every sentence must earn its place. Cut filler, cut repetition, say more with less.\n\nFORMAT — output exactly this structure with no extra lines or sections:\nPrathik Pugazhenthi | Chicago, USA | prathik0300@gmail.com | +13128893640\n${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}\n\nDear Hiring Team at ${input.company},\n\n[Paragraph 1: 2-3 sentences. Strong specific opening — immediately establish who you are and why this role caught your attention. Reference something specific about the role or company from the job description. No generic openers.]\n\n[Paragraph 2: 3-4 sentences. RadioFX Co-op — go deep on ownership. You were the sole engineer on the AI pipeline. What problem it solved, why GKE and Gemini were the right choices, what it meant to ship a production multi-tenant system end to end. Connect this directly to what the target job needs.]\n\n[Paragraph 3: 2-3 sentences. Technical depth and stack alignment — connect your specific stack to what this job requires. Mention specific architectural decisions you made and why. Do not just list technologies — show you understand how to use them together to solve real problems.]\n\n[Paragraph 4: 2-3 sentences. Bajaj Finserv — emphasize scale, self-initiated ownership, and measurable impact. The 98% traffic, 80% error reduction, PageSpeed 65 to 99, SEO fix — high-stakes decisions with real business consequences, not just assigned tasks.]\n\n[Paragraph 5: 2-3 sentences. Why this specific company and role — show genuine informed interest. Reference the job description directly. Connect one specific thing about their stack, product, or mission to your experience.]\n\n[Paragraph 6: 1-2 sentences. Confident close — sound like someone who knows their value and is genuinely excited about the mutual fit. End with a forward-looking statement. Do not beg for an interview.]\n\nThank you for your time and consideration.\nSincerely,\nPrathik Pugazhenthi`;\n\nconst coverLetterRequest = {\n    model: \"claude-haiku-4-5-20251001\",\n    max_tokens: 2000,\n    messages: [\n      {\n        role: \"user\",\n        content: coverLetterPrompt\n      }\n    ],\n  };\n\n  return {\n    json: {\n      title:                input.title,\n      company:              input.company,\n      location:             input.location,\n      job_url:              input.job_url,\n      salary:               input.salary,\n      date_posted:          input.date_posted,\n      source:               input.source,\n      is_remote:            input.is_remote,\n      description:          input.description,\n      resume_latex:         latex,\n      cover_letter_request: coverLetterRequest\n    }\n  };\n});\n\nreturn results;"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          496,
-          368
-        ],
-        "id": "9805a68c-a263-47dd-8e30-eb95bc345fdc",
-        "name": "Sanitize LaTex"
-      },
-      {
-        "parameters": {
-          "jsCode": "const jobs = $input.all();\nconst originalLatex = $('Resume LaTeX Store').first().json.resume_latex;\n\nconst results = jobs.map(job => {\n  const jobData = job.json;\n  const jobDescription = (jobData.job_description || jobData.description || '').substring(0, 3000);\n  const jobTitle = jobData.title || '';\n  const company = jobData.company || '';\n\n  const prompt = `You are a world-class resume writer and ATS optimization expert with 15+ years of experience helping software engineers land jobs at top tech companies. Your task is to rewrite the bullet points in the provided LaTeX resume to better align with the target job description — without fabricating anything.\n\nOUTPUT FORMAT — NON-NEGOTIABLE RULES:\n1. OUTPUT ONLY RAW LATEX CODE. Begin with \\\\documentclass and end with \\\\end{document}. Not a single character before or after.\n2. DO NOT wrap output in markdown. No backticks, no triple backticks, nothing.\n3. DO NOT add any explanation, commentary, or notes of any kind.\n4. DO NOT change the \\\\documentclass, \\\\usepackage, \\\\geometry, \\\\titleformat, \\\\titlespacing, or any preamble commands.\n5. The resume MUST fit on exactly ONE PAGE.\n6. Every bullet point MUST be a maximum of 2 lines when rendered in the PDF. If a bullet is getting long, split the thought and make it tighter — cut words, not meaning.\n7. The resume MUST fit on exactly ONE PAGE with no content overlap or overflow. If content is too long, shorten the bullet points — do not change spacing or vspace values.\n\nIDENTITY & INTEGRITY RULES:\n8. DO NOT invent or fabricate any experience, skill, company, tool, technology, metric, or achievement not in the original resume.\n9. DO NOT add ${company} as a place of employment. The candidate has NOT worked there.\n10. DO NOT add any new job positions or roles not in the original resume.\n11. DO NOT change any company names, job titles, employment dates, education details, GPA, school names, or project names.\n12. DO NOT add technologies not already listed in Technical Skills.\n13. Only use skills already in the resume: Python, JavaScript, TypeScript, React, Redux, Next.js, Nest.js, Node.js, Swift, Solidity, Flask, HTML, SQL, MongoDB, Redis, Cassandra, RabbitMQ, Azure Service Bus, GCP, AWS, Azure, TensorFlow, R, Machine Learning, OpenAI, Docker, SonarQube, Kubernetes, GitHub Actions, Selenium, Jest, PowerBI, Alteryx, Postman, Figma, Agile, Scrum, CI/CD, TDD, GKE, Helm, NGINX, Gemini API.\n\nDATES — CRITICAL RULE:\n14. Copy ALL employment dates EXACTLY character-for-character from the original LaTeX. Do not change, reformat, or reinterpret any date. If the original says \"Sept 2025 – Dec 2025\" then output exactly \"Sept 2025 – Dec 2025\". No exceptions.\n\nLINKS — CRITICAL RULE:\n15. Every \\\\href{} link present in the original LaTeX MUST appear in the output in the exact same location. This includes GitHub links, Chrome Web Store links, publication links, portfolio links, and any other hyperlinks. Do not remove, modify, or relocate any \\\\href{} command.\n16. If a project or publication in the original has a GitHub link or external link, it MUST have the same link in the output.\n\nBOLD FORMATTING RULES:\n17. Wrap every opening action verb of each bullet point in \\\\textbf{}. For example: \\\\textbf{Engineered}, \\\\textbf{Architected}, \\\\textbf{Optimized}, \\\\textbf{Reduced}, \\\\textbf{Built}, \\\\textbf{Deployed}, \\\\textbf{Designed}, \\\\textbf{Led}, etc.\n18. Wrap ALL numbers, percentages, metrics, and quantifiable achievements in \\\\textbf{}. This includes things like \\\\textbf{80\\\\%}, \\\\textbf{98\\\\%}, \\\\textbf{11,380}, \\\\textbf{65 to 99}, \\\\textbf{0\\\\% to 55\\\\%}, \\\\textbf{3} pipelines, \\\\textbf{N+} tenants, etc.\n19. Wrap key technology names that are directly relevant to the target job description in \\\\textbf{} when they appear inside bullet points. For example if the job needs Kubernetes, bold it: \\\\textbf{Kubernetes}. Do not bold every single technology — only the ones most relevant to this specific job.\n20. Do not double-bold. If something is already inside \\\\textbf{} in the original, keep it as-is.\n\nBULLET POINT IMPACT RULES:\n21. Every bullet must follow the STAR format strictly: Action verb + What you built/did + The technology or method used + The measurable outcome or business impact.\n22. Use powerful, specific language. Replace vague words like \"improved\", \"worked on\", \"helped\" with precise verbs like \"Architected\", \"Slashed\", \"Accelerated\", \"Spearheaded\", \"Scaled\", \"Automated\", \"Shipped\", \"Reduced\", \"Boosted\".\n23. Make the candidate sound like a high-ownership engineer. Use phrases that imply ownership and impact: \"end-to-end\", \"production-grade\", \"zero-downtime\", \"at scale\", \"cross-functional\", \"from scratch\", \"single-handedly\" — only where truthful based on the original bullet.\n24. Mirror the exact keywords and phrases from the job description naturally inside bullet points so ATS systems score this resume highly. Do not keyword-stuff — weave them in naturally.\n25. Every bullet should make a recruiter think \"this person has done exactly what we need\". Emphasize depth of ownership, scale of impact, and technical sophistication — all grounded in what is already in the original resume.\n\nWHAT YOU CAN CHANGE:\n- Only the TEXT inside bullet points in Experience and Projects sections\n- Rephrase bullets to use stronger action verbs\n- Mirror keywords from job description naturally\n- Emphasize relevant aspects of real existing experience\n- Bold formatting as per rules 15-18\n- Keep all existing metrics exactly as-is (80%, 98%, 95%, etc.)\n- Keep bullet points concise — maximum 2 lines each when rendered at 10pt font in a 0.6in margin document\n- Prioritize tight, punchy language over elaborate descriptions\n- If a bullet exceeds 2 lines, cut it down — remove filler words, combine clauses, tighten phrasing\n\nWHAT YOU CANNOT CHANGE:\n- Publications section — leave exactly as written including all \\\\href{} links\n- Education section — leave exactly as written\n- Technical Skills section — leave exactly as written\n- Commented-out lines — leave exactly as written\n- Number of bullet points in any section\n- Any \\\\vspace{} values\n- Any company names, dates, job titles\n- Any \\\\href{} links anywhere in the document\n\nTARGET JOB:\nJob Title: ${jobTitle}\nCompany: ${company}\nJob Description: ${jobDescription}\n\nKEY SKILLS TO EMPHASIZE FOR THIS ROLE:\n${jobDescription.match(/\\b(React|Python|Node|Kubernetes|Docker|AWS|GCP|TypeScript|SQL|MongoDB|Redis|CI\\/CD|REST|GraphQL|Nest|Next|Redux|Cassandra|Helm|NGINX|Gemini|OpenAI|TensorFlow)\\b/gi)\n  ?.filter((v,i,a) => a.indexOf(v) === i).join(', ') || 'See job description above'}\n\nPrioritize these matched skills when rewriting bullet points.\n\nORIGINAL LATEX RESUME:\n${originalLatex}\n\nFINAL CHECKLIST — verify before outputting:\n- Output starts with \\\\documentclass, ends with \\\\end{document}\n- Did NOT add ${company} as a workplace\n- Did NOT invent any new skills or technologies\n- Did NOT change any dates, company names, or job titles — dates copied EXACTLY from original\n- Did NOT add or remove any bullet points\n- Did NOT touch Publications, Education, or Technical Skills\n- All \\\\vspace{} values identical to original\n- All commented-out lines remain commented out\n- Every \\\\href{} link from the original is present in the output\n- Every bullet starts with a \\\\textbf{} action verb\n- All metrics and percentages are wrapped in \\\\textbf{}\n- Key job-relevant technologies are bolded inside bullets\n- Every bullet point is maximum 2 lines\n- No content overlaps or overflows the page\n- Resume fits on exactly one page\n\nOutput the complete optimized LaTeX resume now:`;\n\n  const requestBody = {\n    model: \"claude-haiku-4-5-20251001\",\n    max_tokens: 4000,\n    messages: [{ role: \"user\", content: prompt }]\n  };\n\n  return {\n    json: {\n      title:       jobData.title,\n      company:     jobData.company,\n      location:    jobData.location,\n      job_url:     jobData.job_url,\n      salary:      jobData.salary,\n      date_posted: jobData.date_posted,\n      source:      jobData.source,\n      is_remote:   jobData.is_remote,\n      description: jobData.description || jobData.job_description || '',\n      requestBody: requestBody\n    }\n  };\n});\n\nreturn results;"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          32,
-          368
-        ],
-        "id": "50fdc238-1241-4713-be2f-3c5b7478ced8",
-        "name": "Build Resume Prompt",
-        "executeOnce": false
-      },
-      {
-        "parameters": {
-          "method": "POST",
-          "url": "https://api.anthropic.com/v1/messages",
-          "sendHeaders": true,
-          "headerParameters": {
-            "parameters": [
-              {
-                "name": "anthropic-version",
-                "value": "2023-06-01"
-              },
-              {
-                "name": "content-type",
-                "value": "application/json"
-              },
-              {
-                "name": "x-api-key",
-                "value": "<YOUR_API_KEY>"
-              }
-            ]
-          },
-          "sendBody": true,
-          "specifyBody": "json",
-          "jsonBody": "={{ JSON.stringify($json.requestBody) }}\n",
-          "options": {
-            "batching": {
-              "batch": {
-                "batchSize": 1,
-                "batchInterval": 20000
-              }
-            }
-          }
-        },
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.4,
-        "position": [
-          272,
-          368
-        ],
-        "id": "3feb1e4f-a015-46c0-a05f-050392a3f21d",
-        "name": "ATS Resume Optimization",
-        "retryOnFail": true,
-        "waitBetweenTries": 5000
-      },
-      {
-        "parameters": {
-          "method": "POST",
-          "url": "https://api.anthropic.com/v1/messages",
-          "sendHeaders": true,
-          "headerParameters": {
-            "parameters": [
-              {
-                "name": "anthropic-version",
-                "value": "2023-06-01"
-              },
-              {
-                "name": "content-type",
-                "value": "application/json"
-              },
-              {
-                "name": "x-api-key",
-                "value": "<YOUR_API_KEY>"
-              }
-            ]
-          },
-          "sendBody": true,
-          "specifyBody": "json",
-          "jsonBody": "={{ JSON.stringify($json.cover_letter_request) }}\n",
-          "options": {
-            "batching": {
-              "batch": {
-                "batchSize": 1,
-                "batchInterval": 20000
-              }
-            }
-          }
-        },
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.4,
-        "position": [
-          784,
-          240
-        ],
-        "id": "7829d488-f7f8-4888-bca0-72225b84d36d",
-        "name": "Write Cover Letter",
-        "retryOnFail": true,
-        "waitBetweenTries": 5000
-      },
-      {
-        "parameters": {
-          "mode": "combine",
-          "combineBy": "combineByPosition",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.merge",
-        "typeVersion": 3.2,
-        "position": [
-          1056,
-          352
-        ],
-        "id": "79430da0-3498-4e0b-8bab-9ba6df141e3c",
-        "name": "Merge"
-      },
-      {
-        "parameters": {
-          "jsCode": "const sheetItems  = $input.all();\nconst newJobItems = $('Parse Filter Output').all();\n\n// Build Set of existing URLs from sheet\nconst existingUrls = new Set(\n  sheetItems\n    .map(i => (i.json['Job Link'] || '').trim().toLowerCase())\n    .filter(Boolean)\n);\n\n// Build Set of company+title combos as second safety check\n// catches same job posted under different URLs across sites\nconst existingKeys = new Set(\n  sheetItems\n    .map(i => {\n      const company = (i.json['Company Name'] || '').trim().toLowerCase();\n      const title   = (i.json['Role Title']   || '').trim().toLowerCase();\n      return `${company}||${title}`;\n    })\n    .filter(k => k !== '||')\n);\n\n// Filter out already tracked jobs\nconst newJobs = newJobItems.filter(i => {\n  const url     = (i.json.job_url || '').trim().toLowerCase();\n  const company = (i.json.company  || '').trim().toLowerCase();\n  const title   = (i.json.title    || '').trim().toLowerCase();\n  const key     = `${company}||${title}`;\n\n  return !existingUrls.has(url) && !existingKeys.has(key);\n});\n\nif (newJobs.length === 0) {\n  return [{ json: { skipped: true, message: 'No new jobs today' } }];\n}\n\nreturn newJobs.map(job => ({\n  json: {\n    ...job.json,\n    skipped: false\n  }\n}));"
-        },
-        "type": "n8n-nodes-base.code",
-        "typeVersion": 2,
-        "position": [
-          1744,
-          0
-        ],
-        "id": "b8995149-218e-4541-b51c-822d112564a5",
-        "name": "Dedup Code"
-      },
-      {
-        "parameters": {
-          "documentId": {
-            "__rl": true,
-            "value": "<GOOGLE_SHEETS_ID>",
-            "mode": "list",
-            "cachedResultName": "Job Application Tracker",
-            "cachedResultUrl": "<GOOGLE_SHEETS_URL>"
-          },
-          "sheetName": {
-            "__rl": true,
-            "value": "gid=0",
-            "mode": "list",
-            "cachedResultName": "Application Master",
-            "cachedResultUrl": "<GOOGLE_SHEETS_URL>"
-          },
-          "options": {}
-        },
-        "type": "n8n-nodes-base.googleSheets",
-        "typeVersion": 4.7,
-        "position": [
-          1520,
-          0
-        ],
-        "id": "93dae7a9-981a-4660-a7c8-2fb2b7b19300",
-        "name": "Get Already Applied Jobs",
-        "credentials": {
-          "googleSheetsOAuth2Api": {
-            "id": "<GOOGLE_SHEETS_OAUTH>",
-            "name": "Google Sheets account"
-          }
-        }
-      },
-      {
-        "parameters": {
-          "conditions": {
-            "options": {
-              "caseSensitive": true,
-              "leftValue": "",
-              "typeValidation": "strict",
-              "version": 3
+            {
+              "id": "b0f84785-5aca-4e81-a868-f1b7a6d8c8d1",
+              "name": "location",
+              "value": "United States",
+              "type": "string"
             },
-            "conditions": [
-              {
-                "id": "ab42a105-ef18-4dbd-8fbc-6fbde5da67fc",
-                "leftValue": "={{ $json.skipped }}",
-                "rightValue": "true",
-                "operator": {
-                  "type": "boolean",
-                  "operation": "true",
-                  "singleValue": true
-                }
-              }
-            ],
-            "combinator": "and"
-          },
-          "options": {}
-        },
-        "type": "n8n-nodes-base.if",
-        "typeVersion": 2.3,
-        "position": [
-          1984,
-          0
-        ],
-        "id": "381e816d-c068-4188-bf88-46eb59e53c7b",
-        "name": "If Already Applied to the Job"
-      },
-      {
-        "parameters": {
-          "method": "POST",
-          "url": "https://api.anthropic.com/v1/messages",
-          "sendHeaders": true,
-          "headerParameters": {
-            "parameters": [
-              {
-                "name": "anthropic-version",
-                "value": "2023-06-01"
-              },
-              {
-                "name": "content-type",
-                "value": "application/json"
-              },
-              {
-                "name": "x-api-key",
-                "value": "<YOUR_API_KEY>"
-              }
-            ]
-          },
-          "sendBody": true,
-          "specifyBody": "json",
-          "jsonBody": "={{ JSON.stringify({\n  model: \"claude-haiku-4-5-20251001\",\n  max_tokens: 20,\n  messages: [{\n    role: \"user\",\n    content: \"You are a job filter. Respond with ONLY {\\\"relevant\\\": true} or {\\\"relevant\\\": false}. No other text.\\n\\nRules:\\n- relevant true = tech job (software, developer, devops, kubernetes, backend, frontend, full stack, cloud, SRE) AND requires 0-4 years OR entry level OR junior OR associate OR new grad\\n- relevant false = everything else, senior roles, 5+ years required, non-tech jobs\\n\\nJob Title: \" + $json.title + \"\\nDescription: \" + ($json.description || '').substring(0, 500)\n  }]\n}) }}",
-          "options": {
-            "batching": {
-              "batch": {
-                "batchSize": 1,
-                "batchInterval": 5000
-              }
+            {
+              "id": "7acbba01-1eb4-438e-8fa9-33e75adf3d4e",
+              "name": "remote_ok",
+              "value": "true",
+              "type": "string"
+            },
+            {
+              "id": "7ccc2c9a-8c64-42f7-b1f9-44b96a5c3b5b",
+              "name": "spreadsheet_id",
+              "value": "<YOUR_SPREADSHEET_ID>",
+              "type": "string"
+            },
+            {
+              "id": "964648e0-b95e-4356-8aca-364ab120a6d7",
+              "name": "your_email",
+              "value": "<YOUR_EMAIL>",
+              "type": "string"
+            },
+            {
+              "id": "e07e212d-abc6-43a9-8511-76451387b3af",
+              "name": "max_jobs",
+              "value": "4",
+              "type": "string"
+            },
+            {
+              "id": "a106ed7b-f888-441f-91f3-f63f68b0a5f3",
+              "name": "resume_file_id",
+              "value": "<YOUR_RESUME_FILE_ID>",
+              "type": "string"
+            },
+            {
+              "id": "18fac6c6-9866-4c6f-b0b1-273bac50072b",
+              "name": "software_job",
+              "value": "software engineer python javascript react entry level",
+              "type": "string"
+            },
+            {
+              "id": "f9bd9a3d-5450-4781-81e2-cf796828d6d9",
+              "name": "devops_job",
+              "value": "devops engineer kubernetes docker AWS entry level",
+              "type": "string"
+            },
+            {
+              "id": "8d7f1ce8-1a81-4338-b514-0f020c8d2c75",
+              "name": "fullstack_job",
+              "value": "full stack developer react nodejs javascript entry level associate",
+              "type": "string"
+            },
+            {
+              "id": "1c443add-1e8b-49c0-b05a-6dca786f9afc",
+              "name": "remote_job",
+              "value": "remote software engineer react python nodejs junior",
+              "type": "string"
             }
-          }
+          ]
         },
-        "type": "n8n-nodes-base.httpRequest",
-        "typeVersion": 4.4,
-        "position": [
-          1040,
-          0
-        ],
-        "id": "9d562ccc-9c84-443c-b628-8dcae3cb45ff",
-        "name": "HTTP Request"
+        "options": {}
       },
-      {
-        "parameters": {
-          "sendTo": "<YOUR_EMAIL_ID>",
-          "subject": "=No new jobs found — {{ $now.toFormat('MMM dd, yyyy') }}",
-          "message": "=<!DOCTYPE html> <html> <head>   <meta charset=\"UTF-8\"> </head> <body style=\"margin:0;padding:0;background:#f4f6f9;font-family:'Segoe UI',Arial,sans-serif;\">   <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f6f9;padding:40px 0;\">     <tr>       <td align=\"center\">         <table width=\"520\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);\">                      <!-- Top accent bar -->           <tr>             <td style=\"background:linear-gradient(90deg,#6366f1,#06b6d4);height:5px;\"></td>           </tr>            <!-- Body -->           <tr>             <td style=\"padding:40px 40px 32px;\">                              <!-- Icon + heading -->               <div style=\"text-align:center;margin-bottom:28px;\">                 <div style=\"font-size:48px;margin-bottom:12px;\">📭</div>                 <h1 style=\"margin:0;font-size:22px;font-weight:700;color:#1a202c;\">No New Jobs Today</h1>                 <p style=\"margin:8px 0 0;font-size:14px;color:#718096;\">Your daily job scan ran successfully — nothing new to process.</p>               </div>                <!-- Divider -->               <div style=\"border-top:1px solid #e2e8f0;margin:0 0 24px;\"></div>                <!-- Detail row -->               <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">                 <tr>                   <td style=\"background:#f7fafc;border-radius:8px;padding:16px 20px;\">                     <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">                       <tr>                         <td style=\"font-size:13px;color:#718096;padding-bottom:8px;\">📅 &nbsp;Scan date</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;padding-bottom:8px;\">{{ $now.toFormat('MMM dd, yyyy') }}</td>                       </tr>                       <tr>                         <td style=\"font-size:13px;color:#718096;padding-bottom:8px;\">🔍 &nbsp;Status</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;padding-bottom:8px;\">All jobs already tracked</td>                       </tr>                       <tr>                         <td style=\"font-size:13px;color:#718096;\">⚡ &nbsp;Next scan</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;\">Tomorrow at 7:00 AM</td>                       </tr>                     </table>                   </td>                 </tr>               </table>                <!-- Footer note -->               <p style=\"margin:24px 0 0;font-size:13px;color:#a0aec0;text-align:center;line-height:1.6;\">                 This is an automated message from your n8n job tracker.<br>No action needed.               </p>              </td>           </tr>            <!-- Bottom bar -->           <tr>             <td style=\"background:#f7fafc;padding:16px 40px;border-top:1px solid #e2e8f0;text-align:center;\">               <span style=\"font-size:12px;color:#cbd5e0;\">AI Job Tracker &nbsp;·&nbsp; {{ $now.toFormat('yyyy') }}</span>             </td>           </tr>          </table>       </td>     </tr>   </table> </body> </html>",
-          "options": {}
-        },
-        "type": "n8n-nodes-base.gmail",
-        "typeVersion": 2.2,
-        "position": [
-          2208,
-          0
-        ],
-        "id": "bdbaaa32-90ba-4859-9b2f-01f68e3cc1ac",
-        "name": "Send No New Jobs Found Email",
-        "webhookId": "6c4f9626-3aa6-4215-88cd-190721e6d17e",
-        "credentials": {
-          "gmailOAuth2": {
-            "id": "<YOUR_GMAIL_OAUTH>",
-            "name": "Gmail account"
-          }
+      "type": "n8n-nodes-base.set",
+      "typeVersion": 3.4,
+      "position": [
+        272,
+        0
+      ],
+      "id": "48c0a2a9-667c-4c79-905a-7489e8ae451c",
+      "name": "Workflow Config"
+    },
+    {
+      "parameters": {
+        "jsCode": "// Get config from Edit Fields\nconst config = $input.first().json;\n\n// Your LaTeX resume stored as a variable\nconst resume_latex = String.raw`<YOUR_LATEX_RESUME_HERE>`\n\nreturn [{\n  json: {\n    ...config,\n    resume_latex\n  }\n}];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        512,
+        0
+      ],
+      "id": "447f62f5-04a7-4465-9b62-8bae73ae1a42",
+      "name": "Resume LaTeX Store"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sites = ['indeed', 'linkedin', 'zip_recruiter', 'glassdoor', 'google'];\n\nconst sleep = (ms) => new Promise(resolve => {\n  const start = Date.now();\n  while (Date.now() - start < ms) {}\n});\n\nconst allTerms = [\n  // General terms\n  $input.first().json.software_job,\n  $input.first().json.devops_job,\n  $input.first().json.fullstack_job,\n  $input.first().json.remote_job,\n  $input.first().json.associate_job,\n  'backend developer python nodejs entry level',\n  'frontend developer react javascript entry level',\n  // Extra terms\n  'associate software engineer',\n  'associate software developer',\n  'associate full stack developer',\n  'associate backend developer',\n  'associate frontend developer',\n  'associate devops engineer',\n  'software engineer new grad',\n  'software engineer I entry level',\n  'junior software engineer',\n  'SDE 1 software engineer',\n  'early career software engineer',\n  'new graduate software engineer'\n];\n\nconst apiKey = 'jobspy123';\nconst config = $input.first().json;\n\n// Build all combinations upfront\nconst combinations = [];\nfor (const site of sites) {\n  for (const term of allTerms) {\n    combinations.push({ site, term });\n  }\n}\n\n// Helper to fetch one combination\nconst fetchJobs = async ({ site, term }) => {\n  try {\n    const params = [\n      `site_name=${encodeURIComponent(site)}`,\n      `search_term=${encodeURIComponent(term)}`,\n      `location=${encodeURIComponent(config.location)}`,\n      `results_wanted=5`,\n      `job_type=fulltime`,\n      `country_indeed=USA`,\n      `hours_old=168`\n    ].join('&');\n\n    const response = await helpers.httpRequest({\n      method: 'GET',\n      url: `https://prathik-jobspy.fly.dev/api/v1/search_jobs?${params}`,\n      headers: { 'x-api-key': apiKey }\n    });\n\n    if (response.jobs && response.jobs.length > 0) {\n      return response.jobs.map(job => ({\n        title:       job.title        || '',\n        company:     job.company      || '',\n        location:    job.location     || '',\n        job_url:     job.job_url      || '',\n        description: (job.description || '').substring(0, 3000),\n        salary:      job.min_amount   ? `$${job.min_amount} - $${job.max_amount}` : 'Not specified',\n        date_posted: job.date_posted  || '',\n        is_remote:   job.is_remote    || false,\n        source:      site\n      }));\n    }\n    return [];\n  } catch(e) {\n    console.log(`Failed: ${site} - ${term}: ${e}`);\n    return [];\n  }\n};\n\n// Process in parallel batches of 10\nconst BATCH_SIZE = 10;\nconst allJobs = [];\n\nfor (let i = 0; i < combinations.length; i += BATCH_SIZE) {\n  const batch = combinations.slice(i, i + BATCH_SIZE);\n  const results = await Promise.all(batch.map(fetchJobs));\n  results.forEach(jobs => allJobs.push(...jobs));\n  \n  // Small delay between batches to avoid overwhelming jobspy\n  if (i + BATCH_SIZE < combinations.length) {\n    sleep(100)  \n  }\n}\n\n// Deduplicate by job_url\nconst seen = new Set();\nconst unique = allJobs.filter(job => {\n  if (seen.has(job.job_url)) return false;\n  seen.add(job.job_url);\n  return true;\n});\n\nreturn unique.map(job => ({ json: job }));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        768,
+        0
+      ],
+      "id": "4abe9817-953c-4988-9469-90675d2b88d2",
+      "name": "Fetch All Jobs",
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\nconst originalJobs = $('Fetch All Jobs').all();\nconst results = [];\n\nfor (let i = 0; i < items.length; i++) {\n  const response = items[i].json;\n  \n  let text = '';\n  if (response.content && Array.isArray(response.content)) {\n    text = response.content[0]?.text || '';\n  }\n\n  let isRelevant = false;\n  try {\n    isRelevant = JSON.parse(text.trim()).relevant === true;\n  } catch (e) {\n    isRelevant = text.includes('\"relevant\": true') || text.includes('\"relevant\":true');\n  }\n\n  if (!isRelevant) continue;\n\n  results.push({ json: originalJobs[i].json });\n}\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        0
+      ],
+      "id": "1f2ee57d-e5de-44b2-b1fe-2d1a87313961",
+      "name": "Parse Filter Output"
+    },
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const coverResponse = $input.item.json;\nconst base = $('Build Resume Prompt').item.json;\n\nlet coverLetterContent = '';\nif (coverResponse.content && Array.isArray(coverResponse.content)) {\n  coverLetterContent = coverResponse.content[0]?.text || '';\n} else if (coverResponse.text) {\n  coverLetterContent = coverResponse.text;\n}\n\nconst cleanLatex = String(coverResponse.resume_latex || '')\n  .replace(/```latex/gi, '').replace(/```/g, '').trim();\n\nconst cleanCoverLetter = String(coverLetterContent || '')\n  .replace(/```/g, '').replace(/^---\\n/gm, '').trim();\n\nconst sanitizeName = (str) => (str || '')\n  .replace(/[<>:\"/\\\\|?*]/g, '')\n  .replace(/\\//g, '')\n  .replace(/:/g, '')\n  .replace(/\\0/g, '')\n  .replace(/[^\\x20-\\x7E]/g, '')\n  .replace(/\\s+/g, ' ') \n  .replace(/^[\\s.\\-]+|[\\s.\\-]+$/g, '')\n  .replace(/#{|}|\\[|\\]|\\(|\\)|\\^|~|`|!|@|\\$|%|&|;|'|,/g, '')\n  .trim()\n  .substring(0, 80);\n\nconst company = sanitizeName(base.company) || 'Company';\n// const title = sanitizeName(base.title) || 'Role';\n\nconst docTitle = `${company} - Prathik`.substring(0, 100);\n\nreturn {\n  json: {\n    title: base.title || '',\n    company: base.company || '',\n    location: base.location || '',\n    job_url: base.job_url || '',\n    salary: base.salary || '',\n    date_posted: base.date_posted || '',\n    source: base.source || '',\n    is_remote: base.is_remote ?? '',\n    description: base.description || '',\n    resume_latex: cleanLatex,\n    cover_letter: cleanCoverLetter,\n    doc_title: docTitle,\n    applied_date: new Date().toLocaleDateString('en-US', {\n      day: 'numeric', month: 'short', year: 'numeric',\n    }),\n  },\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1296,
+        352
+      ],
+      "id": "f9a35f64-acd7-4d68-b382-22492a91945a",
+      "name": "Combine Data"
+    },
+    {
+      "parameters": {
+        "operation": "update",
+        "documentURL": "={{ $json.id }}",
+        "actionsUi": {
+          "actionFields": [
+            {
+              "action": "insert",
+              "locationChoice": "location",
+              "text": "={{ $('Combine Data').item.json.cover_letter }}"
+            }
+          ]
+        }
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1760,
+        352
+      ],
+      "id": "e8c70499-18cf-4b3c-99a0-22b89121adaa",
+      "name": "Insert Cover Letter Content",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "<YOUR_GOOGLE_DRIVE_OAUTH_ID>",
+          "name": "Google Docs account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "folderId": "<YOUR_DRIVE_FOLDER_ID>",
+        "title": "=={{ $('Combine Data').item.json.doc_title }}_Cover_Letter"
+      },
+      "type": "n8n-nodes-base.googleDocs",
+      "typeVersion": 2,
+      "position": [
+        1520,
+        352
+      ],
+      "id": "ef76e1cc-c6d1-43fe-8d1b-d76a51a72de6",
+      "name": "Create Cover Letter Doc",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000,
+      "credentials": {
+        "googleDocsOAuth2Api": {
+          "id": "<YOUR_GOOGLE_DRIVE_OAUTH_ID>",
+          "name": "Google Docs account"
         }
       }
-    ],
-    "pinData": {},
-    "connections": {
-      "Daily Trigger": {
-        "main": [
-          [
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://prathik-latex.fly.dev/compile",
+        "sendBody": true,
+        "bodyParameters": {
+          "parameters": [
             {
-              "node": "Workflow Config",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Workflow Config": {
-        "main": [
-          [
-            {
-              "node": "Resume LaTeX Store",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Resume LaTeX Store": {
-        "main": [
-          [
-            {
-              "node": "Fetch All Jobs",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Fetch All Jobs": {
-        "main": [
-          [
-            {
-              "node": "HTTP Request",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Parse Filter Output": {
-        "main": [
-          [
-            {
-              "node": "Get Already Applied Jobs",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Combine Data": {
-        "main": [
-          [
-            {
-              "node": "Create Cover Letter Doc",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Create Cover Letter Doc": {
-        "main": [
-          [
-            {
-              "node": "Insert Cover Letter Content",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Insert Cover Letter Content": {
-        "main": [
-          [
-            {
-              "node": "Compile Latex to PDF",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Compile Latex to PDF": {
-        "main": [
-          [
-            {
-              "node": "Upload Resume to Drive",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Upload Resume to Drive": {
-        "main": [
-          [
-            {
-              "node": "Build Job Summary",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Log to Job Tracker": {
-        "main": [
-          [
-            {
-              "node": "Build Email Summary",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Build Email Summary": {
-        "main": [
-          [
-            {
-              "node": "Send Summary Email",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Build Job Summary": {
-        "main": [
-          [
-            {
-              "node": "Log to Job Tracker",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Sanitize LaTex": {
-        "main": [
-          [
-            {
-              "node": "Write Cover Letter",
-              "type": "main",
-              "index": 0
+              "name": "latex",
+              "value": "={{ $('Combine Data').item.json.resume_latex }}\n"
             },
             {
-              "node": "Merge",
-              "type": "main",
-              "index": 1
+              "name": "title",
+              "value": "=={{ $('Combine Data').item.json.doc_title }}_Resume"
             }
           ]
-        ]
-      },
-      "Build Resume Prompt": {
-        "main": [
-          [
-            {
-              "node": "ATS Resume Optimization",
-              "type": "main",
-              "index": 0
+        },
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 1500
             }
-          ]
-        ]
+          }
+        }
       },
-      "ATS Resume Optimization": {
-        "main": [
-          [
-            {
-              "node": "Sanitize LaTex",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1984,
+        352
+      ],
+      "id": "31f45570-5e02-44c4-867d-bcad4b4bdd74",
+      "name": "Compile Latex to PDF",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "name": "=={{ $('Combine Data').item.json.doc_title }}_Resume\n",
+        "driveId": {
+          "__rl": true,
+          "mode": "list",
+          "value": "My Drive"
+        },
+        "folderId": {
+          "__rl": true,
+          "value": "<YOUR_DRIVE_FOLDER_ID>",
+          "mode": "list",
+          "cachedResultName": "Job Applications",
+          "cachedResultUrl": "<YOUR_DRIVE_FOLDER_URL>"
+        },
+        "options": {}
       },
-      "Write Cover Letter": {
-        "main": [
-          [
-            {
-              "node": "Merge",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
+      "type": "n8n-nodes-base.googleDrive",
+      "typeVersion": 3,
+      "position": [
+        32,
+        672
+      ],
+      "id": "497f210f-156a-49e2-bb29-25a5da3ccdba",
+      "name": "Upload Resume to Drive",
+      "retryOnFail": true,
+      "credentials": {
+        "googleDriveOAuth2Api": {
+          "id": "<YOUR_GOOGLE_SHEETS_OAUTH_ID>",
+          "name": "Google Drive account"
+        }
       },
-      "Merge": {
-        "main": [
-          [
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "documentId": {
+          "__rl": true,
+          "value": "={{ $('Workflow Config').first().json.spreadsheet_id }}",
+          "mode": "id"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "Application Master",
+          "mode": "name"
+        },
+        "columns": {
+          "mappingMode": "defineBelow",
+          "value": {
+            "Application ID": "={{ Date.now() }}",
+            "Company Name": "={{ $json.company }}",
+            "Role Title": "={{ $json.title }}",
+            "Role Type (Intern / FT / Contract)": "FT",
+            "Location": "={{ $json.location }}",
+            "Work Mode": "={{ $json.is_remote ? 'Remote' : 'Hybrid' }}",
+            "Job Link": "={{ $json.job_url }}",
+            "Applied Date": "={{ $json.applied_date }}",
+            "Cover Letter (Y/N)": "Y",
+            "Current Stage": "Yet to Apply",
+            "Status": "In Review",
+            "Salary Range": "={{ $json.salary }}"
+          },
+          "matchingColumns": [
+            "Application ID"
+          ],
+          "schema": [
             {
-              "node": "Combine Data",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Dedup Code": {
-        "main": [
-          [
+              "id": "Application ID",
+              "displayName": "Application ID",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true,
+              "removed": false
+            },
             {
-              "node": "If Already Applied to the Job",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "Get Already Applied Jobs": {
-        "main": [
-          [
+              "id": "Company Name",
+              "displayName": "Company Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
             {
-              "node": "Dedup Code",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
-      },
-      "If Already Applied to the Job": {
-        "main": [
-          [
+              "id": "Role Title",
+              "displayName": "Role Title",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
             {
-              "node": "Send No New Jobs Found Email",
-              "type": "main",
-              "index": 0
+              "id": "Role Type (Intern / FT / Contract)",
+              "displayName": "Role Type (Intern / FT / Contract)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Location",
+              "displayName": "Location",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Work Mode",
+              "displayName": "Work Mode",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Job Link",
+              "displayName": "Job Link",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Applied Date",
+              "displayName": "Applied Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Cover Letter (Y/N)",
+              "displayName": "Cover Letter (Y/N)",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Referral Name",
+              "displayName": "Referral Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Recruiter Name",
+              "displayName": "Recruiter Name",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Current Stage",
+              "displayName": "Current Stage",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Status",
+              "displayName": "Status",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Last Follow-up Date",
+              "displayName": "Last Follow-up Date",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
+            },
+            {
+              "id": "Salary Range",
+              "displayName": "Salary Range",
+              "required": false,
+              "defaultMatch": false,
+              "display": true,
+              "type": "string",
+              "canBeUsedToMatch": true
             }
           ],
-          [
-            {
-              "node": "Build Resume Prompt",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
+          "attemptToConvertTypes": false,
+          "convertFieldsToString": false
+        },
+        "options": {}
       },
-      "HTTP Request": {
-        "main": [
-          [
-            {
-              "node": "Parse Filter Output",
-              "type": "main",
-              "index": 0
-            }
-          ]
-        ]
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        496,
+        672
+      ],
+      "id": "15f8e092-4e66-484e-86a8-f649fb4d8208",
+      "name": "Log to Job Tracker",
+      "retryOnFail": true,
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "<YOUR_GMAIL_OAUTH_ID>",
+          "name": "Google Sheets account"
+        }
+      },
+      "onError": "continueRegularOutput"
+    },
+    {
+      "parameters": {
+        "jsCode": "const jobs = $input.all() || [];\n\nconst rows = jobs.map((job, i) => `\n  <tr style=\"background:${i % 2 === 0 ? '#f9f9f9' : 'white'}\">\n    <td style=\"padding:10px;border:1px solid #ddd\"><strong>${job.json['Company Name'] || ''}</strong></td>\n    <td style=\"padding:10px;border:1px solid #ddd\">${job.json['Role Title'] || ''}</td>\n    <td style=\"padding:10px;border:1px solid #ddd\">${job.json['Location'] || ''}${job.json['Work Mode'] === 'Remote' ? ' 🌐' : ''}</td>\n    <td style=\"padding:10px;border:1px solid #ddd\">${job.json['Salary Range'] || 'N/A'}</td>\n    <td style=\"padding:10px;border:1px solid #ddd\">${job.json['Source'] || ''}</td>\n    <td style=\"padding:10px;border:1px solid #ddd\">\n      <a href=\"${job.json['Job Link'] || '#'}\" style=\"background:#27ae60;color:white;padding:5px 10px;border-radius:3px;text-decoration:none;margin-right:4px\">Apply</a>\n      <a href=\"${job.json['Resume Link'] || '#'}\" style=\"background:#2980b9;color:white;padding:5px 10px;border-radius:3px;text-decoration:none;margin-right:4px\">Resume</a>\n      <a href=\"${job.json['Cover Letter Link'] || '#'}\" style=\"background:#8e44ad;color:white;padding:5px 10px;border-radius:3px;text-decoration:none\">Cover Letter</a>\n    </td>\n  </tr>\n`).join('');\n\nconst html = `\n<div style=\"font-family:Arial,sans-serif;max-width:900px;margin:0 auto\">\n  <h2 style=\"color:#2c3e50\">🎯 ${jobs.length} Jobs Ready to Apply</h2>\n  <p style=\"color:#666\">Your AI-tailored resume and cover letter are ready for each role below. Click Apply, attach your documents and submit!</p>\n  <table style=\"border-collapse:collapse;width:100%\">\n    <thead>\n      <tr style=\"background:#2c3e50;color:white\">\n        <th style=\"padding:12px;text-align:left\">Company</th>\n        <th style=\"padding:12px;text-align:left\">Role</th>\n        <th style=\"padding:12px;text-align:left\">Location</th>\n        <th style=\"padding:12px;text-align:left\">Salary</th>\n        <th style=\"padding:12px;text-align:left\">Source</th>\n        <th style=\"padding:12px;text-align:left\">Actions</th>\n      </tr>\n    </thead>\n    <tbody>${rows}</tbody>\n  </table>\n  <p style=\"color:#aaa;font-size:12px;margin-top:20px\">\n    Generated by AI Resume Optimizer • ${new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'})}\n  </p>\n</div>`;\n\nreturn [{ json: { html, total: jobs.length } }];"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        768,
+        672
+      ],
+      "id": "8511274d-99de-4cbd-a01b-f63cb55132bc",
+      "name": "Build Email Summary"
+    },
+    {
+      "parameters": {
+        "sendTo": "<YOUR_EMAIL>",
+        "subject": "={{ $json.total }} Jobs Ready to Apply — {{ $now.toFormat('MMM dd, yyyy') }}",
+        "message": "={{ $json.html }}",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        1040,
+        672
+      ],
+      "id": "2cea416b-3b82-4fbd-81d0-065c018c8842",
+      "name": "Send Summary Email",
+      "webhookId": "<YOUR_WEBHOOK_ID_1>",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "<YOUR_GOOGLE_DOCS_OAUTH_ID>",
+          "name": "Gmail account"
+        }
       }
     },
-    "active": true,
-    "settings": {
-      "executionOrder": "v1",
-      "binaryMode": "separate",
-      "availableInMCP": false
+    {
+      "parameters": {
+        "mode": "runOnceForEachItem",
+        "jsCode": "const combineData = $('Combine Data').item.json;\nconst coverLetterDocId = $('Create Cover Letter Doc').item.json.id;\nconst upload = $('Upload Resume to Drive').item.json;\n\nconst cover_letter_link = `https://docs.google.com/document/d/${coverLetterDocId}/edit`;\nconst resume_link =\n  upload.webViewLink || `https://drive.google.com/file/d/${upload.id}/view`;\n\nreturn {\n  json: {\n    company: combineData.company,\n    title: combineData.title,\n    location: combineData.location,\n    salary: combineData.salary,\n    job_url: combineData.job_url,\n    source: combineData.source,\n    is_remote: combineData.is_remote,\n    applied_date: combineData.applied_date,\n    resume_link,\n    cover_letter_link,\n  },\n};"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        256,
+        672
+      ],
+      "id": "c381ca1e-631e-4342-b5b3-f280cbd7a166",
+      "name": "Build Job Summary"
     },
-    "versionId": "e9340442-e363-4230-91a4-f480da76a0d3",
-    "meta": {
-      "templateCredsSetupCompleted": true,
-      "instanceId": "78ab7905dff8a2c34619f07ed2c9377311a71bf4512eb162efad46735bb57502"
+    {
+      "parameters": {
+        "jsCode": "const items = $input.all();\n\nconst results = items.map(item => {\n  const input = item.json;\n\n  // Extract from Claude API response\n  let raw = '';\n  if (input.content && Array.isArray(input.content)) {\n    raw = input.content[0].text || '';\n  } else if (input.text) {\n    raw = input.text;\n  }\n\n  raw = raw.replace(/```latex/gi, '').replace(/```/g, '');\n\n  const latexMatch = raw.match(/\\\\documentclass[\\s\\S]*?\\\\end\\{document\\}/);\n  let latex = latexMatch\n    ? latexMatch[0].trim()\n    : $('Resume LaTeX Store').first().json.resume_latex;\n\n  const allowedPackages = ['inputenc','geometry','enumitem','titlesec','hyperref','fontawesome5','xcolor','graphicx'];\n  latex = latex.replace(/\\\\usepackage(\\[.*?\\])?\\{([^}]+)\\}/g, (match, opts, pkg) =>\n    allowedPackages.includes(pkg.trim()) ? match : ''\n  );\n  latex = latex.replace(/\\\\titleformat\\{\\\\section\\}[^\\n]*/g,\n    '\\\\titleformat{\\\\section}{\\\\large\\\\bfseries}{}{0em}{}[\\\\titlerule]');\n  latex = latex.replace(/\\\\titlespacing\\{\\\\section\\}[^\\n]*/g,\n    '\\\\titlespacing{\\\\section}{0pt}{0.4em}{0.5em}');\n\n  if (!latex.includes('\\\\begin{document}') || !latex.includes('\\\\end{document}')) {\n    latex = $('Resume LaTeX Store').first().json.resume_latex;\n  }\n  \nconst coverLetterPrompt = `You are an expert cover letter writer who specializes in helping software engineers land jobs at top tech companies. Write a highly compelling, personalized, one-page cover letter for this specific job application.\n\nCANDIDATE PROFILE:\nName: <YOUR_FULL_NAME>\nLocation: <YOUR_CITY_STATE>\nContact: <YOUR_EMAIL> | +13128893640 | linkedin.com/in/<YOUR_LINKEDIN_ID> | <YOUR_PORTFOLIO_URL>\nEducation: MS Computer Science, UIC (GPA 4.0, May 2026) | BS CS Engineering, VIT India (GPA 3.6)\n\nEXPERIENCE DEPTH — use these to go beyond what the resume says:\n- RadioFX Co-op (Sept-Dec 2025): Sole engineer on a multi-agent AI pipeline that took a radio station from zero web presence to a fully deployed, production GKE site — automated the entire prompt to code to deployment lifecycle using Gemini 2.5/3 Pro and Vercel v0. Also owned the full CMS architecture end-to-end using NestJS and Cassandra, designed the JWT API contract, and personally shipped the CI/CD pipelines.\n- RadioFX Intern (Jun-Aug 2025): Took ownership of migrating all legacy services to GKE — designed the cluster architecture with isolated dev/prod namespaces from scratch, not just followed instructions. Built Cloud Build and GitHub Actions pipelines with zero-downtime deployment guarantees.\n- Bajaj Finserv Health SDE (Sept 2023-Jul 2024): Reduced codebase errors by 80% by building automated validation pipelines — this directly unblocked the B2C and Doctor Portal teams from daily firefighting. Designed and shipped CanvasRx entirely — a real-time image annotation tool used by doctors in live consultations, improving the quality of patient care workflows.\n- Bajaj Finserv Health Associate SDE (Jul 2022-Sept 2023): Maintained modules that served 98% of all website traffic — high-stakes, high-ownership role with zero tolerance for downtime. The AMP optimization that moved PageSpeed from 65 to 99 was entirely self-initiated, not assigned — identified the problem, proposed the solution, and shipped it.\n- Bajaj Finserv Health Intern (Jan-Jun 2022): Fixed 10,818 broken SEO URLs which directly recovered organic search traffic for the business. Established SonarQube from scratch — the team had zero test coverage before this, and this initiative raised it to 55%.\n\nSKILLS: React, TypeScript, Node.js, NestJS, Python, GCP, AWS, Docker, Kubernetes, MongoDB, Redis, Cassandra, CI/CD, GitHub Actions, GKE, Helm, NGINX, Gemini API, OpenAI, Jest, TDD, Agile\n\nTARGET JOB:\nRole: ${input.title}\nCompany: ${input.company}\nJob Description: ${(input.description || '').substring(0, 800)}\n\nDate: ${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}\n\nWRITING RULES:\n1. Write in plain text only — no markdown, no bullet points, no headers, no bold tags.\n2. Sound like a confident, high-ownership engineer — not a generic applicant.\n3. Go beyond the resume. Reveal the depth, context, and personal ownership behind the work. Talk about WHY decisions were made and WHAT challenges were solved, not just WHAT was built.\n4. Mirror keywords from the job description naturally — weave them in conversationally, do not list them.\n5. Every paragraph must make the recruiter think \"this person has done exactly this before\".\n6. Do not fabricate anything — only use experience listed above.\n7. Do not use generic openers like \"I am writing to express my interest\", \"I am a passionate engineer\", \"I would be a great fit\". Start strong and specific instead.\n8. Each paragraph must flow naturally into the next — this should read like a story of compounding ownership and impact, not a list of jobs.\n9. Keep it to exactly 6 paragraphs.\n10. The entire letter including header and sign-off MUST be under 400 words. Be concise and punchy — every sentence must earn its place. Cut filler, cut repetition, say more with less.\n\nFORMAT — output exactly this structure with no extra lines or sections:\n<YOUR_FULL_NAME> | Chicago, USA | <YOUR_EMAIL> | +13128893640\n${new Date().toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}\n\nDear Hiring Team at ${input.company},\n\n[Paragraph 1: 2-3 sentences. Strong specific opening — immediately establish who you are and why this role caught your attention. Reference something specific about the role or company from the job description. No generic openers.]\n\n[Paragraph 2: 3-4 sentences. RadioFX Co-op — go deep on ownership. You were the sole engineer on the AI pipeline. What problem it solved, why GKE and Gemini were the right choices, what it meant to ship a production multi-tenant system end to end. Connect this directly to what the target job needs.]\n\n[Paragraph 3: 2-3 sentences. Technical depth and stack alignment — connect your specific stack to what this job requires. Mention specific architectural decisions you made and why. Do not just list technologies — show you understand how to use them together to solve real problems.]\n\n[Paragraph 4: 2-3 sentences. Bajaj Finserv — emphasize scale, self-initiated ownership, and measurable impact. The 98% traffic, 80% error reduction, PageSpeed 65 to 99, SEO fix — high-stakes decisions with real business consequences, not just assigned tasks.]\n\n[Paragraph 5: 2-3 sentences. Why this specific company and role — show genuine informed interest. Reference the job description directly. Connect one specific thing about their stack, product, or mission to your experience.]\n\n[Paragraph 6: 1-2 sentences. Confident close — sound like someone who knows their value and is genuinely excited about the mutual fit. End with a forward-looking statement. Do not beg for an interview.]\n\nThank you for your time and consideration.\nSincerely,\n<YOUR_FULL_NAME>`;\n\nconst coverLetterRequest = {\n    model: \"claude-haiku-4-5-20251001\",\n    max_tokens: 2000,\n    messages: [\n      {\n        role: \"user\",\n        content: coverLetterPrompt\n      }\n    ],\n  };\n\n  return {\n    json: {\n      title:                input.title,\n      company:              input.company,\n      location:             input.location,\n      job_url:              input.job_url,\n      salary:               input.salary,\n      date_posted:          input.date_posted,\n      source:               input.source,\n      is_remote:            input.is_remote,\n      description:          input.description,\n      resume_latex:         latex,\n      cover_letter_request: coverLetterRequest\n    }\n  };\n});\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        496,
+        368
+      ],
+      "id": "9805a68c-a263-47dd-8e30-eb95bc345fdc",
+      "name": "Sanitize LaTex"
     },
-    "id": "Hr583rqOSx9hjJeX",
-    "tags": []
-  }
+    {
+      "parameters": {
+        "jsCode": "const jobs = $input.all();\nconst originalLatex = $('Resume LaTeX Store').first().json.resume_latex;\n\nconst results = jobs.map(job => {\n  const jobData = job.json;\n  const jobDescription = (jobData.job_description || jobData.description || '').substring(0, 3000);\n  const jobTitle = jobData.title || '';\n  const company = jobData.company || '';\n\n  const keywords = jobDescription.match(/\\b(React|Python|Node|Kubernetes|Docker|AWS|GCP|TypeScript|SQL|MongoDB|Redis|CI\\/CD|REST|GraphQL|Nest|Next|Redux|Cassandra|Helm|NGINX|Gemini|OpenAI|TensorFlow)\\b/gi)\n  ?.filter((v, i, a) => a.indexOf(v) === i).join(', ') || 'See job description above';\n\nconst prompt = `You are a world-class resume writer and ATS optimization expert with 15+ years of experience helping software engineers land jobs at top tech companies. Your task is to rewrite the bullet points in the provided LaTeX resume to better align with the target job description — without fabricating anything.\n\nOUTPUT FORMAT — NON-NEGOTIABLE RULES:\n1. OUTPUT ONLY RAW LATEX CODE. Begin with \\\\documentclass and end with \\\\end{document}. Not a single character before or after.\n2. THE RESUME MUST FIT ON EXACTLY ONE PAGE. This is the highest priority rule. If anything overflows, shorten bullets — never touch spacing or vspace values.\n3. EVERY BULLET POINT MUST BE MAXIMUM 2 LINES when rendered at 10pt font with 0.3in margins. If a bullet exceeds 2 lines, cut words aggressively — preserve meaning, cut filler.\n4. DO NOT wrap output in markdown. No backticks, no triple backticks, nothing.\n5. DO NOT add any explanation, commentary, or notes of any kind.\n6. DO NOT change the \\\\documentclass, \\\\usepackage, \\\\geometry, \\\\titleformat, \\\\titlespacing, or any preamble commands.\n\nSPACING RULES — NON-NEGOTIABLE, COPY EXACTLY:\nThe resume uses a tight compressed layout at 10pt font with 0.3in margins on all sides.\nAll spacing is pre-calibrated to fit on one page without overlap. Never change any of these values.\n\n\\\\geometry{left=0.3in, right=0.3in, top=0.3in, bottom=0.3in}\n\\\\setlength{\\\\parindent}{0pt}\n\\\\setlength{\\\\parskip}{0.5pt}\n\\\\setlist[itemize]{leftmargin=0.25in}\n\\\\titlespacing{\\\\section}{0pt}{0.4em}{0.5em}\n\nAfter \\\\begin{itemize} in Experience sections:\n- First job entry: \\\\vspace{-17pt}\n- All other job entries: \\\\vspace{-18pt}\n\nAfter \\\\begin{itemize} in Projects sections:\n- All project entries: \\\\vspace{-16pt}\n\nBetween bullets within the same job or project: \\\\vspace{-7pt} — always -7pt, never anything else\n\nSection level transitions:\n- After Education block before Technical Skills: \\\\vspace{-12pt}\n- After Technical Skills block before Experience: \\\\vspace{-9pt}\n\nThese values are the result of manual calibration. Any change — even by 1pt — will cause content to overflow or overlap in the PDF. Do not adjust, do not optimize, do not change.\n\nIDENTITY & INTEGRITY RULES:\n7. DO NOT invent or fabricate any experience, skill, company, tool, technology, metric, or achievement not in the original resume.\n8. DO NOT add ${company} as a place of employment. The candidate has NOT worked there.\n9. DO NOT add any new job positions or roles not in the original resume.\n10. DO NOT change any company names, job titles, employment dates, education details, GPA, school names, or project names.\n11. DO NOT add technologies not already listed in Technical Skills.\n12. Only use skills already in the resume: Python, JavaScript, TypeScript, React, Redux, Next.js, Nest.js, Node.js, Swift, Solidity, Flask, HTML, SQL, MongoDB, Redis, Cassandra, RabbitMQ, Azure Service Bus, GCP, AWS, Azure, TensorFlow, R, Machine Learning, OpenAI, Docker, SonarQube, Kubernetes, GitHub Actions, Selenium, Jest, PowerBI, Alteryx, Postman, Figma, Agile, Scrum, CI/CD, TDD, GKE, Helm, NGINX, Gemini API.\n\nDATES — CRITICAL RULE:\n13. Copy ALL employment dates EXACTLY character-for-character from the original LaTeX. Do not change, reformat, or reinterpret any date. If the original says \"Sept 2025 – Dec 2025\" then output exactly \"Sept 2025 – Dec 2025\". No exceptions.\n\nLINKS — CRITICAL RULE:\n14. Every \\\\href{} link present in the original LaTeX MUST appear in the output in the exact same location. This includes GitHub links, Chrome Web Store links, publication links, portfolio links, and any other hyperlinks. Do not remove, modify, or relocate any \\\\href{} command.\n15. If a project or publication in the original has a GitHub link or external link, it MUST have the same link in the output.\n\nBOLD FORMATTING RULES:\n16. Wrap every opening action verb of each bullet point in \\\\textbf{}. For example: \\\\textbf{Engineered}, \\\\textbf{Architected}, \\\\textbf{Optimized}, \\\\textbf{Reduced}, \\\\textbf{Built}, \\\\textbf{Deployed}, \\\\textbf{Designed}, \\\\textbf{Led}, etc.\n17. Wrap ALL numbers, percentages, metrics, and quantifiable achievements in \\\\textbf{}. This includes things like \\\\textbf{80\\\\%}, \\\\textbf{98\\\\%}, \\\\textbf{11,380}, \\\\textbf{65 to 99}, \\\\textbf{0\\\\% to 55\\\\%}, \\\\textbf{3} pipelines, \\\\textbf{N+} tenants, etc.\n18. Wrap key technology names that are directly relevant to the target job description in \\\\textbf{} when they appear inside bullet points. For example if the job needs Kubernetes, bold it: \\\\textbf{Kubernetes}. Do not bold every single technology — only the ones most relevant to this specific job.\n19. Do not double-bold. If something is already inside \\\\textbf{} in the original, keep it as-is.\n\nBULLET POINT IMPACT RULES:\n20. Every bullet must follow the STAR format strictly: Action verb + What you built/did + The technology or method used + The measurable outcome or business impact.\n21. Use powerful, specific language. Replace vague words like \"improved\", \"worked on\", \"helped\" with precise verbs like \"Architected\", \"Slashed\", \"Accelerated\", \"Spearheaded\", \"Scaled\", \"Automated\", \"Shipped\", \"Reduced\", \"Boosted\".\n22. Make the candidate sound like a high-ownership engineer. Use phrases that imply ownership and impact: \"end-to-end\", \"production-grade\", \"zero-downtime\", \"at scale\", \"cross-functional\", \"from scratch\", \"single-handedly\" — only where truthful based on the original bullet.\n23. Mirror the exact keywords and phrases from the job description naturally inside bullet points so ATS systems score this resume highly. Do not keyword-stuff — weave them in naturally.\n24. Every bullet should make a recruiter think \"this person has done exactly what we need\". Emphasize depth of ownership, scale of impact, and technical sophistication — all grounded in what is already in the original resume.\n\nWHAT YOU CAN CHANGE:\n- Only the TEXT inside bullet points in Experience and Projects sections\n- Rephrase bullets to use stronger action verbs\n- Mirror keywords from job description naturally\n- Emphasize relevant aspects of real existing experience\n- Bold formatting as per rules 16-19\n- Keep all existing metrics exactly as-is (80%, 98%, 95%, etc.)\n- Keep bullet points concise — maximum 2 lines each when rendered at 10pt font in 0.3in margin document\n- Prioritize tight, punchy language over elaborate descriptions\n- If a bullet exceeds 2 lines, cut it down — remove filler words, combine clauses, tighten phrasing\n\nWHAT YOU CANNOT CHANGE:\n- Publications section — leave exactly as written including all \\\\href{} links\n- Education section — leave exactly as written\n- Technical Skills section — leave exactly as written\n- Commented-out lines — leave exactly as written\n- Number of bullet points in any section\n- Any \\\\vspace{} values — use only the exact values specified in SPACING RULES above\n- Any company names, dates, job titles\n- Any \\\\href{} links anywhere in the document\n\nTARGET JOB:\nJob Title: ${jobTitle}\nCompany: ${company}\nJob Description: ${jobDescription}\n\nKEY SKILLS TO EMPHASIZE FOR THIS ROLE:\n${keywords}\n\nPrioritize these matched skills when rewriting bullet points.\n\nORIGINAL LATEX RESUME:\n${originalLatex}\n\nFINAL CHECKLIST — verify before outputting:\n- Output starts with \\\\documentclass, ends with \\\\end{document}\n- Did NOT add ${company} as a workplace\n- Did NOT invent any new skills or technologies\n- Did NOT change any dates, company names, or job titles — dates copied EXACTLY from original\n- Did NOT add or remove any bullet points\n- Did NOT touch Publications, Education, or Technical Skills\n- All \\\\vspace{} values match SPACING RULES exactly — not a single pt different\n- All commented-out lines remain commented out\n- Every \\\\href{} link from the original is present in the output\n- Every bullet starts with a \\\\textbf{} action verb\n- All metrics and percentages are wrapped in \\\\textbf{}\n- Key job-relevant technologies are bolded inside bullets\n- Every bullet point is maximum 2 lines\n- No content overlaps or overflows the page\n- Resume fits on exactly one page\n\nFINAL OVERFLOW CHECK — before outputting, mentally render each bullet at 10pt font in a 0.3in margin single-column layout. If any bullet wraps to a third line, rewrite it shorter. If the document exceeds one page, shorten the longest bullets first until it fits. This is non-negotiable.\n\nOutput the complete optimized LaTeX resume now:`;\n  \n  const requestBody = {\n    model: \"claude-haiku-4-5-20251001\",\n    max_tokens: 4000,\n    messages: [{ role: \"user\", content: prompt }]\n  };\n\n  return {\n    json: {\n      title:       jobData.title,\n      company:     jobData.company,\n      location:    jobData.location,\n      job_url:     jobData.job_url,\n      salary:      jobData.salary,\n      date_posted: jobData.date_posted,\n      source:      jobData.source,\n      is_remote:   jobData.is_remote,\n      description: jobData.description || jobData.job_description || '',\n      requestBody: requestBody\n    }\n  };\n});\n\nreturn results;"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        32,
+        368
+      ],
+      "id": "50fdc238-1241-4713-be2f-3c5b7478ced8",
+      "name": "Build Resume Prompt",
+      "executeOnce": false
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "<YOUR_ANTHROPIC_API_KEY>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.requestBody) }}\n",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 20000
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        272,
+        368
+      ],
+      "id": "3feb1e4f-a015-46c0-a05f-050392a3f21d",
+      "name": "ATS Resume Optimization",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "<YOUR_ANTHROPIC_API_KEY>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "={{ JSON.stringify($json.cover_letter_request) }}\n",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 20000
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        784,
+        240
+      ],
+      "id": "7829d488-f7f8-4888-bca0-72225b84d36d",
+      "name": "Write Cover Letter",
+      "retryOnFail": true,
+      "waitBetweenTries": 5000
+    },
+    {
+      "parameters": {
+        "mode": "combine",
+        "combineBy": "combineByPosition",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.merge",
+      "typeVersion": 3.2,
+      "position": [
+        1056,
+        352
+      ],
+      "id": "79430da0-3498-4e0b-8bab-9ba6df141e3c",
+      "name": "Merge"
+    },
+    {
+      "parameters": {
+        "jsCode": "const sheetItems  = $input.all();\nconst newJobItems = $('Parse Filter Output').all();\n\n// Build Set of existing URLs from sheet\nconst existingUrls = new Set(\n  sheetItems\n    .map(i => (i.json['Job Link'] || '').trim().toLowerCase())\n    .filter(Boolean)\n);\n\n// Build Set of company+title combos as second safety check\n// catches same job posted under different URLs across sites\nconst existingKeys = new Set(\n  sheetItems\n    .map(i => {\n      const company = (i.json['Company Name'] || '').trim().toLowerCase();\n      const title   = (i.json['Role Title']   || '').trim().toLowerCase();\n      return `${company}||${title}`;\n    })\n    .filter(k => k !== '||')\n);\n\n// Filter out already tracked jobs\nconst newJobs = newJobItems.filter(i => {\n  const url     = (i.json.job_url || '').trim().toLowerCase();\n  const company = (i.json.company  || '').trim().toLowerCase();\n  const title   = (i.json.title    || '').trim().toLowerCase();\n  const key     = `${company}||${title}`;\n\n  return !existingUrls.has(url) && !existingKeys.has(key);\n});\n\nif (newJobs.length === 0) {\n  return [{ json: { skipped: true, message: 'No new jobs today' } }];\n}\n\nreturn newJobs.map(job => ({\n  json: {\n    ...job.json,\n    skipped: false\n  }\n}));"
+      },
+      "type": "n8n-nodes-base.code",
+      "typeVersion": 2,
+      "position": [
+        1744,
+        0
+      ],
+      "id": "b8995149-218e-4541-b51c-822d112564a5",
+      "name": "Dedup Code"
+    },
+    {
+      "parameters": {
+        "documentId": {
+          "__rl": true,
+          "value": "<YOUR_SPREADSHEET_ID>",
+          "mode": "list",
+          "cachedResultName": "Job Application Tracker",
+          "cachedResultUrl": "<YOUR_SPREADSHEET_URL>"
+        },
+        "sheetName": {
+          "__rl": true,
+          "value": "gid=0",
+          "mode": "list",
+          "cachedResultName": "Application Master",
+          "cachedResultUrl": "<YOUR_SPREADSHEET_URL>"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.7,
+      "position": [
+        1520,
+        0
+      ],
+      "id": "93dae7a9-981a-4660-a7c8-2fb2b7b19300",
+      "name": "Get Already Applied Jobs",
+      "credentials": {
+        "googleSheetsOAuth2Api": {
+          "id": "<YOUR_GMAIL_OAUTH_ID>",
+          "name": "Google Sheets account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "conditions": {
+          "options": {
+            "caseSensitive": true,
+            "leftValue": "",
+            "typeValidation": "strict",
+            "version": 3
+          },
+          "conditions": [
+            {
+              "id": "ab42a105-ef18-4dbd-8fbc-6fbde5da67fc",
+              "leftValue": "={{ $json.skipped }}",
+              "rightValue": "true",
+              "operator": {
+                "type": "boolean",
+                "operation": "true",
+                "singleValue": true
+              }
+            }
+          ],
+          "combinator": "and"
+        },
+        "options": {}
+      },
+      "type": "n8n-nodes-base.if",
+      "typeVersion": 2.3,
+      "position": [
+        1984,
+        0
+      ],
+      "id": "381e816d-c068-4188-bf88-46eb59e53c7b",
+      "name": "If Already Applied to the Job"
+    },
+    {
+      "parameters": {
+        "sendTo": "<YOUR_EMAIL>",
+        "subject": "=No new jobs found — {{ $now.toFormat('MMM dd, yyyy') }}",
+        "message": "=<!DOCTYPE html> <html> <head>   <meta charset=\"UTF-8\"> </head> <body style=\"margin:0;padding:0;background:#f4f6f9;font-family:'Segoe UI',Arial,sans-serif;\">   <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#f4f6f9;padding:40px 0;\">     <tr>       <td align=\"center\">         <table width=\"520\" cellpadding=\"0\" cellspacing=\"0\" style=\"background:#ffffff;border-radius:12px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,0.08);\">                      <!-- Top accent bar -->           <tr>             <td style=\"background:linear-gradient(90deg,#6366f1,#06b6d4);height:5px;\"></td>           </tr>            <!-- Body -->           <tr>             <td style=\"padding:40px 40px 32px;\">                              <!-- Icon + heading -->               <div style=\"text-align:center;margin-bottom:28px;\">                 <div style=\"font-size:48px;margin-bottom:12px;\">📭</div>                 <h1 style=\"margin:0;font-size:22px;font-weight:700;color:#1a202c;\">No New Jobs Today</h1>                 <p style=\"margin:8px 0 0;font-size:14px;color:#718096;\">Your daily job scan ran successfully — nothing new to process.</p>               </div>                <!-- Divider -->               <div style=\"border-top:1px solid #e2e8f0;margin:0 0 24px;\"></div>                <!-- Detail row -->               <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">                 <tr>                   <td style=\"background:#f7fafc;border-radius:8px;padding:16px 20px;\">                     <table width=\"100%\" cellpadding=\"0\" cellspacing=\"0\">                       <tr>                         <td style=\"font-size:13px;color:#718096;padding-bottom:8px;\">📅 &nbsp;Scan date</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;padding-bottom:8px;\">{{ $now.toFormat('MMM dd, yyyy') }}</td>                       </tr>                       <tr>                         <td style=\"font-size:13px;color:#718096;padding-bottom:8px;\">🔍 &nbsp;Status</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;padding-bottom:8px;\">All jobs already tracked</td>                       </tr>                       <tr>                         <td style=\"font-size:13px;color:#718096;\">⚡ &nbsp;Next scan</td>                         <td align=\"right\" style=\"font-size:13px;color:#2d3748;font-weight:600;\">Tomorrow at 7:00 AM</td>                       </tr>                     </table>                   </td>                 </tr>               </table>                <!-- Footer note -->               <p style=\"margin:24px 0 0;font-size:13px;color:#a0aec0;text-align:center;line-height:1.6;\">                 This is an automated message from your n8n job tracker.<br>No action needed.               </p>              </td>           </tr>            <!-- Bottom bar -->           <tr>             <td style=\"background:#f7fafc;padding:16px 40px;border-top:1px solid #e2e8f0;text-align:center;\">               <span style=\"font-size:12px;color:#cbd5e0;\">AI Job Tracker &nbsp;·&nbsp; {{ $now.toFormat('yyyy') }}</span>             </td>           </tr>          </table>       </td>     </tr>   </table> </body> </html>",
+        "options": {}
+      },
+      "type": "n8n-nodes-base.gmail",
+      "typeVersion": 2.2,
+      "position": [
+        2208,
+        0
+      ],
+      "id": "bdbaaa32-90ba-4859-9b2f-01f68e3cc1ac",
+      "name": "Send No New Jobs Found Email",
+      "webhookId": "<YOUR_WEBHOOK_ID_2>",
+      "credentials": {
+        "gmailOAuth2": {
+          "id": "<YOUR_GOOGLE_DOCS_OAUTH_ID>",
+          "name": "Gmail account"
+        }
+      }
+    },
+    {
+      "parameters": {
+        "method": "POST",
+        "url": "https://api.anthropic.com/v1/messages",
+        "sendHeaders": true,
+        "headerParameters": {
+          "parameters": [
+            {
+              "name": "anthropic-version",
+              "value": "2023-06-01"
+            },
+            {
+              "name": "content-type",
+              "value": "application/json"
+            },
+            {
+              "name": "x-api-key",
+              "value": "<YOUR_ANTHROPIC_API_KEY>"
+            }
+          ]
+        },
+        "sendBody": true,
+        "specifyBody": "json",
+        "jsonBody": "=={{ JSON.stringify({\n  model: \"claude-haiku-4-5-20251001\",\n  max_tokens: 150,\n  messages: [{\n    role: \"user\",\n    content: \"You are a precise job relevance filter for a software engineer. Analyze the job and decide if it is worth applying to.\\n\\nCANDIDATE PROFILE:\\nExperience: 3 years as software engineer.\\nCore Stack: React, TypeScript, JavaScript, Python, Node.js, NestJS, Next.js\\nCloud & DevOps: GCP, AWS, Docker, Kubernetes, GKE, Helm, NGINX, CI/CD, GitHub Actions\\nDatabases: MongoDB, Cassandra, Redis, SQL\\nOther: REST APIs, JWT, Agile, TDD, Jest, SonarQube, Postman\\nEducation: MS Computer Science (GPA 4.0), BS CS Engineering\\nTarget: Entry level, junior, associate, new grad, SDE-1, 0-3 years roles\\n\\nIMPLICIT SKILLS — count these as known without needing to be listed:\\nHTML, CSS, Git, Linux, bash, JSON, HTTP/HTTPS, OAuth, OOP, MVC, data structures, algorithms, debugging, unit testing, code review, Agile, Scrum, SDLC, microservices concepts, web fundamentals, REST design, API integration, cloud basics, SQL basics, CI/CD concepts\\n\\nHARD DISQUALIFIERS — mark NOT relevant if ANY of these are true:\\n- Primary language is Java, C#, .NET, C++, Ruby, PHP, Golang, Rust, Scala, Kotlin AND none of JavaScript, Python, TypeScript, Node are mentioned anywhere in the JD\\n- Role is primarily iOS or Android native mobile development\\n- Role is embedded systems, firmware, hardware, FPGA, or robotics\\n- Role explicitly requires 5+ years of experience\\n- Role title contains Senior, Staff, Principal, Lead, Architect, Manager, Director, VP, Head of\\n- Role is purely data science, data engineering, or ML research with no software engineering component\\n- Role requires active US security clearance\\n\\nSOFT DISQUALIFIERS — these reduce relevance but do not alone disqualify:\\n- Uses some Java or C# but also requires JavaScript, Python, or TypeScript — still RELEVANT\\n- Requires a framework the candidate hasn't used (Vue, Angular, Django, Spring) but the underlying language matches — still RELEVANT, frameworks are learnable\\n- Mentions preferred skills the candidate lacks — preferred is not required, still RELEVANT\\n\\nRELEVANCE THRESHOLD — 60-70% match required:\\nStep 1: List all REQUIRED skills from the JD (ignore preferred/nice-to-have).\\nStep 2: Count how many the candidate covers including implicit skills.\\nStep 3: Calculate the percentage.\\n- 70%+ match = definitely RELEVANT\\n- 60-69% match = RELEVANT if no hard disqualifiers and role is entry/junior/associate level\\n- Below 60% = NOT relevant unless the candidate's core stack (React, TypeScript, JavaScript, Python, Node.js) is the primary stack of the job\\n\\nIMPORTANT NUANCE:\\n- A job asking for React OR Angular OR Vue = counts as candidate knows it (React)\\n- A job asking for Node OR Django OR Flask = counts as candidate knows it (Node + Flask)\\n- A job asking for AWS OR GCP OR Azure = counts as candidate knows it (AWS + GCP)\\n- A job asking for any SQL database = counts as candidate knows it\\n- A job asking for any NoSQL database = counts as candidate knows it (MongoDB, Cassandra, Redis)\\n- A job that lists Java as a plus but JavaScript as primary = RELEVANT\\n- Frameworks built on a language the candidate knows = learnable, count as partial match\\n- A vague JD with no specific stack but role is software engineer at a tech company = RELEVANT if no hard disqualifiers\\n\\nRespond with ONLY valid JSON. No other text. No explanation.\\nFormat: {\\\"relevant\\\": true} or {\\\"relevant\\\": false}\\n\\nJob Title: \" + $json.title + \"\\nJob Description: \" + ($json.description || '').substring(0, 1000)\n  }]\n}) }}",
+        "options": {
+          "batching": {
+            "batch": {
+              "batchSize": 1,
+              "batchInterval": 5000
+            }
+          }
+        }
+      },
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.4,
+      "position": [
+        1040,
+        0
+      ],
+      "id": "9d562ccc-9c84-443c-b628-8dcae3cb45ff",
+      "name": "Smart Job Relevance Filter"
+    }
+  ],
+  "pinData": {},
+  "connections": {
+    "Daily Trigger": {
+      "main": [
+        [
+          {
+            "node": "Workflow Config",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Workflow Config": {
+      "main": [
+        [
+          {
+            "node": "Resume LaTeX Store",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Resume LaTeX Store": {
+      "main": [
+        [
+          {
+            "node": "Fetch All Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Fetch All Jobs": {
+      "main": [
+        [
+          {
+            "node": "Smart Job Relevance Filter",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Parse Filter Output": {
+      "main": [
+        [
+          {
+            "node": "Get Already Applied Jobs",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Combine Data": {
+      "main": [
+        [
+          {
+            "node": "Create Cover Letter Doc",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Create Cover Letter Doc": {
+      "main": [
+        [
+          {
+            "node": "Insert Cover Letter Content",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Insert Cover Letter Content": {
+      "main": [
+        [
+          {
+            "node": "Compile Latex to PDF",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Compile Latex to PDF": {
+      "main": [
+        [
+          {
+            "node": "Upload Resume to Drive",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Upload Resume to Drive": {
+      "main": [
+        [
+          {
+            "node": "Build Job Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Log to Job Tracker": {
+      "main": [
+        [
+          {
+            "node": "Build Email Summary",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Email Summary": {
+      "main": [
+        [
+          {
+            "node": "Send Summary Email",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Build Job Summary": {
+      "main": [
+        [
+          {
+            "node": "Log to Job Tracker",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Sanitize LaTex": {
+      "main": [
+        [
+          {
+            "node": "Write Cover Letter",
+            "type": "main",
+            "index": 0
+          },
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 1
+          }
+        ]
+      ]
+    },
+    "Build Resume Prompt": {
+      "main": [
+        [
+          {
+            "node": "ATS Resume Optimization",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "ATS Resume Optimization": {
+      "main": [
+        [
+          {
+            "node": "Sanitize LaTex",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Write Cover Letter": {
+      "main": [
+        [
+          {
+            "node": "Merge",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Merge": {
+      "main": [
+        [
+          {
+            "node": "Combine Data",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Dedup Code": {
+      "main": [
+        [
+          {
+            "node": "If Already Applied to the Job",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Get Already Applied Jobs": {
+      "main": [
+        [
+          {
+            "node": "Dedup Code",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "If Already Applied to the Job": {
+      "main": [
+        [
+          {
+            "node": "Send No New Jobs Found Email",
+            "type": "main",
+            "index": 0
+          }
+        ],
+        [
+          {
+            "node": "Build Resume Prompt",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    },
+    "Smart Job Relevance Filter": {
+      "main": [
+        [
+          {
+            "node": "Parse Filter Output",
+            "type": "main",
+            "index": 0
+          }
+        ]
+      ]
+    }
+  },
+  "active": true,
+  "settings": {
+    "executionOrder": "v1",
+    "binaryMode": "separate",
+    "availableInMCP": false
+  },
+  "versionId": "a93881aa-ed7f-4d22-8ad1-8df15c87873b",
+  "meta": {
+    "templateCredsSetupCompleted": true,
+    "instanceId": "<YOUR_INSTANCE_ID>"
+  },
+  "id": "<YOUR_WORKFLOW_ID>",
+  "tags": []
+}
